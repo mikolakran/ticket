@@ -30,7 +30,8 @@ public class Passport implements Serializable {
     private String gender;
     @Column(name = "address", nullable = false)
     private String address;
-    @OneToOne(mappedBy = "passport",cascade = CascadeType.PERSIST)
+
+    @OneToOne(mappedBy = "passport")
     private User user;
 
     public Passport(String family, String name, String patronymic, LocalDate dateBirth, String address) {
@@ -41,4 +42,32 @@ public class Passport implements Serializable {
         this.address = address;
     }
 
+    @Override
+    public String toString() {
+        return "Passport{" +
+                "idPassport=" + idPassport +
+                ", family='" + family + '\'' +
+                ", name='" + name + '\'' +
+                ", patronymic='" + patronymic + '\'' +
+                ", contactNumber='" + contactNumber + '\'' +
+                ", dateBirth=" + dateBirth +
+                ", gender='" + gender + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Passport passport = (Passport) o;
+
+        return idPassport == passport.idPassport;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (idPassport ^ (idPassport >>> 32));
+    }
 }

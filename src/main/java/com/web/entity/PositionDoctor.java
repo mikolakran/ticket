@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Set;
 
@@ -19,12 +20,25 @@ public class PositionDoctor implements Serializable {
     private int positionDoctorId;
     @Column(name = "position",nullable = false)
     private String position;
+    @Column(nullable = false)
+    private LocalTime beginningWork;
+    @Column(nullable = false)
+    private LocalTime beginningBreak;
+    @Column(nullable = false)
+    private LocalTime endBreak;
+    @Column(nullable = false)
+    private LocalTime endWork;
+
     @ManyToMany
-    @JoinTable(name = "doctors",
+    @JoinTable(name = "positionDoctor",
             joinColumns = @JoinColumn(name = "positionDoctorId"),
             inverseJoinColumns = @JoinColumn(name = "id_doctor"))
     private Set<Doctor> doctors;
 
-    @ManyToMany(mappedBy = "positionDoctors")
-    private List<User> user;
+/*    @ManyToMany(cascade = CascadeType.MERGE)
+    @PrimaryKeyJoinColumn
+    @JoinTable(name = "position_doctors",
+            joinColumns = @JoinColumn(name = "positionDoctorId"),
+            inverseJoinColumns = @JoinColumn(name = "userId"))
+    private Set<User> users;*/
 }

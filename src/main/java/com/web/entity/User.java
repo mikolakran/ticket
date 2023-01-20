@@ -27,27 +27,37 @@ public class User implements Serializable {
     @Lob
     @Column(name = "image",length = Integer.MAX_VALUE)
     private byte[] image;
-
-    @OneToOne()
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "idPassport")
     private Passport passport;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
-    @PrimaryKeyJoinColumn
-    @JoinTable(name = "position_doctors",
-    joinColumns = @JoinColumn(name = "userId"),
-    inverseJoinColumns = @JoinColumn(name = "positionDoctorId"))
-    private Set<PositionDoctor> positionDoctors;
-    @OneToOne
+/*    @ManyToMany(mappedBy = "users")
+    private Set<PositionDoctor> positionDoctors;*/
+
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "idDoctor")
     private Doctor doctor;
 
 
-    public User(String userName, String password, String email, String role) {
+    public User(long id, String userName, String password, String email, String role, byte[] photo, Passport passport, Doctor doctor) {
+        this.id = id;
         this.userName = userName;
         this.password = password;
         this.email = email;
         this.role = role;
+        this.image = photo;
+        this.passport = passport;
+        this.doctor = doctor;
+    }
+
+    public User(long id, String userName, String password, String email, String role, byte[] photo, Passport passport) {
+        this.id = id;
+        this.userName = userName;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+        this.image = photo;
+        this.passport = passport;
     }
 
     @Override
@@ -59,5 +69,20 @@ public class User implements Serializable {
                 ", email='" + email + '\'' +
                 ", role='" + role + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        return id == user.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
     }
 }
