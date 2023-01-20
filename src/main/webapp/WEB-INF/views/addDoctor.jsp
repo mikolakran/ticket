@@ -4,6 +4,7 @@
            uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <title>Регистрация</title>
@@ -82,7 +83,7 @@
             </div>
 
             <div class="form-group">
-                <label class="col-md-4 control-label">Patronymic</label>
+                <label class="col-md-4 control-label">Address</label>
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -119,6 +120,20 @@
             </div>
 
             <div class="form-group">
+                <label class="col-md-4 control-label">Position Doctor</label>
+                <div class="col-md-4 selectContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                        <select id="positionDoctor" name="positionDoctor" class="form-control selectpicker">
+                            <c:forEach var="position" items="${positions}">
+                                <option>${position.position}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label class="col-md-4 control-label">Cabinet Number</label>
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
@@ -134,22 +149,12 @@
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input id="Speciality Doctor" name="Speciality Doctor" required="required" placeholder="Speciality Doctor" class="form-control"
+                        <input id="specialityDoctor" name="specialityDoctor" required="required" placeholder="Speciality Doctor" class="form-control"
                                type="text">
                     </div>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label class="col-md-4 control-label">Work Time</label>
-                <div class="col-md-4 inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input id="Work Time" name="Work Time" required="required" placeholder="Work Time" class="form-control"
-                               type="text">
-                    </div>
-                </div>
-            </div>
             <!-- Text input-->
 
             <div class="form-group">
@@ -263,8 +268,7 @@
     function addUser() {
         var cabinet = $("#cabinetNumber").val()
         var speciality = $("#specialityDoctor").val()
-        var position = $("#positionDoctors").val()
-        var time =$("#workTime").val()
+        var position = $("#positionDoctor").val()
 
         var name = $("#name").val()
         var family = $("#family").val()
@@ -282,8 +286,11 @@
         var myDoctor = {
             cabinetNumber:cabinet,
             specialityDoctor:speciality,
-            workTime:time
         }
+
+        var myPositionDoctor = {
+            position: position,
+        };
 
         var myPassport = {
             name: name,
@@ -300,7 +307,8 @@
             confirmPassword: confirmPassword,
             email: email,
             passport:myPassport,
-            doctor:myDoctor
+            doctor:myDoctor,
+            positionDoctor:myPositionDoctor
         };
         $.ajax({
             url: url(restUrl),
@@ -313,7 +321,7 @@
                 if (data.error) {
                     $(".personTable").text(data.error);
                 } else {
-                    window.location.href = url("login");
+                    window.location.href = url("welcome");
                 }
             }
         }).fail(function (data) {

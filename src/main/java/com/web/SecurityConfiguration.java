@@ -33,14 +33,14 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .securityMatcher("/", "/login", "/addUser",
-                        "/welcome", "/users", "/upDateUser", "/addTopic",
-                        "/posts/**", "/addPost", "/updatePost")
+                        "/welcome", "/users", "/upDateUser", "/addPositionDoctor"
+                ,"/addDoctor","/doctors/**")
                 .authorizeHttpRequests(authorize ->
                         authorize
                                 .requestMatchers("/", "/login", "/addUser").permitAll()
-                                .requestMatchers("/welcome").hasAnyRole("ADMIN", "USER")
-                                .requestMatchers("/users/**").hasRole("ADMIN")
-                                .requestMatchers("/posts/**").hasRole("USER")
+                                .requestMatchers("/welcome").hasAnyRole("ADMIN", "USER","DOCTOR")
+                                .requestMatchers("/users/**","/addPositionDoctor","/addDoctor").hasRole("ADMIN")
+                                .requestMatchers("/doctors/**").hasRole("USER")
                                 .requestMatchers("/addPost/**").hasRole("USER")
                                 .requestMatchers("/updatePost/**").hasRole("USER")
                                 .anyRequest().authenticated())

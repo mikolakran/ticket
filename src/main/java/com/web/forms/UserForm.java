@@ -1,14 +1,15 @@
 package com.web.forms;
 
+import com.web.entity.Doctor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
-import com.web.entity.Doctor;
 import com.web.entity.Passport;
 import com.web.entity.User;
 
 import java.io.Serializable;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,6 +25,7 @@ public class UserForm implements Serializable {
     private byte[] photo;
     private Passport passport;
     private Doctor doctor;
+    private PositionDoctorForm positionDoctor;
     private String error;
 
     public UserForm(User user) {

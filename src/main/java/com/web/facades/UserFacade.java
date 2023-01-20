@@ -1,9 +1,7 @@
 package com.web.facades;
 
 import com.web.dao.DoctorDAO;
-import com.web.dao.PassportDAO;
 import com.web.dao.UserDAO;
-import com.web.entity.Passport;
 import com.web.entity.User;
 import com.web.forms.UserForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +13,6 @@ public class UserFacade {
     private UserDAO userDAO;
 
     @Autowired
-    private PassportDAO passportDAO;
-
-    @Autowired
     private DoctorDAO doctorDAO;
 
     public UserForm save(UserForm userForm){
@@ -26,8 +21,6 @@ public class UserFacade {
         if (userForm.getDoctor()!=null){
             user.setDoctor(doctorDAO.save(userForm.getDoctor()));
         }
-        Passport passport = passportDAO.save(userForm.getPassport());
-        user.setPassport(passport);
         User resultSave = userDAO.save(user);
         return new UserForm(resultSave);
     }
@@ -49,5 +42,6 @@ public class UserFacade {
         user.setRole(userForm.getRole());
         user.setImage(userForm.getPhoto());
         user.setPassport(userForm.getPassport());
+        user.setDoctor(userForm.getDoctor());
     }
 }

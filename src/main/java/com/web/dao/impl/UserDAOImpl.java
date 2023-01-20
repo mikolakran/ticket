@@ -1,6 +1,8 @@
 package com.web.dao.impl;
 
 import com.web.entity.User;
+import com.web.exception.LoginException;
+import com.web.exception.MyException;
 import com.web.repository.UserJpaRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User get(Long aLong) {
-        return null;
+        return userJpaRepository.findById(aLong).orElse(null);
     }
 
     @Override
@@ -36,17 +38,17 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void delete(Long aLong) {
-
+        userJpaRepository.deleteById(aLong);
     }
 
     @Override
     public User getByName(String name) {
-        return null;
+        return userJpaRepository.findByUserName(name);
     }
 
     @Override
     public User getByEmail(String email) {
-        return null;
+        return userJpaRepository.findByEmail(email);
     }
 
     @Override
@@ -61,6 +63,35 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public String getRole(User user) {
+       /* String role = null;
+        if (user != null) {
+            if (user.getEmail().equals("mikolakran@gmail.com")) {
+                role = "admin";
+            } else if (user.getRole().equals("doctor")){
+                role = "doctor";
+            }else {
+                role = "user";
+            }
+        }
+        log.trace("UserDAOImpl.getRole(User user) role = " + role + " in user =" + user);
+        return role;*/
         return null;
+    }
+
+    private void validationSQL(User user) throws MyException {
+        if (getByName(user.getUserName()) != null) {
+            log.error("UserDAOImpl.validationSQL(User user)",
+                    new Throwable("user.getUserName() != null = " + user));
+            throw new LoginException("name exist");
+        } else {
+            log.trace("UserDAOImpl.save(User user) = true");
+        }
+        if (getByEmail(user.getEmail()) != null) {
+            log.error("UserDAOImpl.validationSQL(User user)",
+                    new Throwable("user.getEmail() != null = " + user));
+            throw new LoginException("email exist");
+        } else {
+            log.trace("UserDAOImpl.save(User user) = true");
+        }
     }
 }

@@ -44,7 +44,7 @@
                                     <div class="sppb-addon-content">
                                         <div class="sppb-addon-single-image-container">
                                             <img class="sppb-img-responsive"
-                                                 src="/resources/image/girl.png"
+                                                 src="/image/girl.png"
                                                  title="">
                                         </div>
                                     </div>
