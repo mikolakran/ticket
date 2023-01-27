@@ -1,4 +1,3 @@
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"
            prefix="c" %>
 <%@ taglib prefix="fmt"
@@ -13,21 +12,31 @@
           href="<c:url value="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/> "/>
     <link rel="stylesheet"
           href="<c:url value="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/> "/>
-    <link rel="stylesheet" href="/css/user.css" />
+    <link rel="stylesheet" href="/css/user.css"/>
+    <link rel="stylesheet" href="/css/table.css"/>
+    <link rel="stylesheet" href="/css/style.css"/>
 </head>
 <body>
 <header>
     <nav class="navbar navbar-default">
         <div class="container-fluid">
-            <div class="col-md-8">
+            <div class="col-md-7">
                 <div class="navbar-header">
                     <a href="#" class="navbar-brand">It-Academy</a>
                 </div>
             </div>
             <div>
                 <ul class="nav navbar-nav">
-                    <li><a href="#">О нас</a></li>
-                    <li><a href="#">Обратная связь</a></li>
+                    <button class="custom-btn btn-6">
+                        <span>
+                        <a href="${pageContext.request.contextPath}/addTopic">Add Topic</a>
+                    </span>
+                    </button>
+                    <button class="custom-btn btn-6">
+                        <span>
+                         <a href="${pageContext.request.contextPath}/logout">logout</a>
+                    </span>
+                    </button>
                 </ul>
             </div>
             <div class="userinfo">
@@ -54,10 +63,9 @@
 </header>
 <div class="container-fluid">
     <div id="men-left" class="rad col-md-2"></div>
-    <div class="col-md-2"></div>
+    <div class="col-md-1"></div>
     <div class=" col-md-4">
         <div>
-            <p>${home}</p>
             <h1 id="h1r" class=" text-center">Welcome</h1>
             <security:authorize access="hasRole('ROLE_ADMIN')">
                 <c:if test="${topicNull!=null}">
@@ -74,7 +82,8 @@
                         <li>${position.position}
                     </ul>
                 </c:forEach>
-                <a href="${pageContext.request.contextPath}/addPositionDoctor" class="btn btn-primary">add Position Doctor</a>
+                <a href="${pageContext.request.contextPath}/addPositionDoctor" class="btn btn-primary">add Position
+                    Doctor</a>
                 <a href="${pageContext.request.contextPath}/addDoctor" class="btn btn-primary">add Doctor</a>
                 <a href="${pageContext.request.contextPath}/upDateUser" class="btn btn-primary">Update user</a>
                 <a href="${pageContext.request.contextPath}/users" class="btn btn-primary">Your users</a>
@@ -87,38 +96,38 @@
                 <c:if test="${positionNull==null}">
                     <h2 class="text-center">All Topic</h2>
                 </c:if>
-                <c:forEach var="position" items="${positions}">
-                    <ul>
-                        <li>${position.position}
-                            <a href="${pageContext.request.contextPath}/doctors?idPosition=${position.positionDoctorId}"
-                               class="btn btn-primary"> Display Topic</a>
-                        </li>
-                    </ul>
-                </c:forEach>
-                <a href="${pageContext.request.contextPath}/addTopic" class="btn btn-primary">Add Topic</a>
-                <a href="${pageContext.request.contextPath}/upDateUser" class="btn btn-primary">Update user</a>
-                <a href="${pageContext.request.contextPath}/logout" class="btn btn-primary">logout</a>
+                <div class="content">
+                    <c:forEach var="position" items="${positions}">
+                        <div class="col-md-4">
+                            <button class="custom-btn btn-6">
+                        <span>
+                        <a href="${pageContext.request.contextPath}/doctors?idPosition=${position.positionDoctorId}"
+                           >${position.position}</a>
+                    </span>
+                            </button>
+                        </div>
+                    </c:forEach>
+                </div>
             </security:authorize>
             <security:authorize access="hasRole('ROLE_DOCTOR')">
-                <c:if test="${topicNull!=null}">
-                    <h3 class="text-center">${topicNull}</h3>
+                <c:if test="${calendarDoctorNull!=null}">
+                    <h3 class="text-center">${calendarDoctorNull}</h3>
                 </c:if>
-                <c:if test="${topicNull==null}">
-                    <h2 class="text-center">All Topic</h2>
+                <c:if test="${calendarDoctorNull==null}">
+                    <h2 class="text-center">All Calendar</h2>
                 </c:if>
-                <c:forEach var="topic" items="${topics}">
-                    <ul>
-                        <li>${topic.nameTopic}
-                            <a href="${pageContext.request.contextPath}/posts?idTopic=${topic.id}"
-                               class="btn btn-primary"> Display Topic</a>
-                            <a href="${pageContext.request.contextPath}/welcome?deleteIdTopic=${topic.id}"
-                               class="btn btn-primary"> Delete Topic</a>
-                        </li>
-                    </ul>
+                <c:forEach var="calendar" items="${calendarDoctor}">
+                    <div class="col-md-4">
+                        <div class="cell three">
+                            <button class="custom-btn btn-6">
+                        <span>
+                         <a href="${pageContext.request.contextPath}/displayAllUsers?idDate=${calendar.idDate}"
+                         >${calendar.localDate}</a>
+                    </span>
+                            </button>
+                        </div>
+                    </div>
                 </c:forEach>
-                <a href="${pageContext.request.contextPath}/addTopic" class="btn btn-primary">Add Topic</a>
-                <a href="${pageContext.request.contextPath}/upDateUser" class="btn btn-primary">Update user</a>
-                <a href="${pageContext.request.contextPath}/logout" class="btn btn-primary">logout</a>
             </security:authorize>
         </div>
     </div>

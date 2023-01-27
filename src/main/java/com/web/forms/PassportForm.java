@@ -26,7 +26,7 @@ public class PassportForm {
     public PassportForm(Passport passport){
         this.idPassport = passport.getIdPassport();
         this.family = passport.getFamily();
-        this. name = passport.getName();
+        this.name = passport.getName();
         this.patronymic = passport.getPatronymic();
         this.contactNumber = passport.getContactNumber();
         this.dateBirth = passport.getDateBirth();

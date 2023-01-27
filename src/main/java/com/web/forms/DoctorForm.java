@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -20,19 +19,19 @@ public class DoctorForm implements Serializable {
     private String specialityDoctor;
     private Set<PositionDoctor> positionDoctors;
     private User user;
-
-    public DoctorForm(long idDoctor, int cabinetNumber, String specialityDoctor, User user) {
-        this.idDoctor = idDoctor;
-        this.cabinetNumber = cabinetNumber;
-        this.specialityDoctor = specialityDoctor;
-        this.user = user;
-    }
+    private Set<CalendarTicketForm> calendarTickets;
 
     public DoctorForm(Doctor doctor) {
         this.idDoctor = doctor.getIdDoctor();
         this.cabinetNumber = doctor.getCabinetNumber();
         this.specialityDoctor = doctor.getSpecialityDoctor();
         this.user = doctor.getUser();
+    }
+
+    public DoctorForm(long idDoctor, int cabinetNumber, String specialityDoctor) {
+        this.idDoctor = idDoctor;
+        this.cabinetNumber = cabinetNumber;
+        this.specialityDoctor = specialityDoctor;
     }
 
     @Override

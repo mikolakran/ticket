@@ -19,8 +19,6 @@ public class PositionDoctorForm implements Serializable {
     private LocalTime beginningBreak;
     private LocalTime endBreak;
     private LocalTime endWork;
-
-//    private Set<UserForm> users;
     private Set<DoctorForm> doctors;
 
 

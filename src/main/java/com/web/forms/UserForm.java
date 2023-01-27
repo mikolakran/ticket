@@ -26,6 +26,8 @@ public class UserForm implements Serializable {
     private Passport passport;
     private Doctor doctor;
     private PositionDoctorForm positionDoctor;
+    private long idDate;
+    private String ticketTime;
     private String error;
 
     public UserForm(User user) {
@@ -37,14 +39,6 @@ public class UserForm implements Serializable {
         this.photo = user.getImage();
         this.passport = user.getPassport();
         this.doctor = user.getDoctor();
-    }
-
-    public UserForm(long id, String userName, String password, String email, String role) {
-        this.id = id;
-        this.userName = userName;
-        this.password = password;
-        this.email = email;
-        this.role = role;
     }
 
     @Override

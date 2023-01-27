@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalTime;
-import java.util.List;
 import java.util.Set;
 
 @Data()
@@ -35,10 +34,4 @@ public class PositionDoctor implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "id_doctor"))
     private Set<Doctor> doctors;
 
-/*    @ManyToMany(cascade = CascadeType.MERGE)
-    @PrimaryKeyJoinColumn
-    @JoinTable(name = "position_doctors",
-            joinColumns = @JoinColumn(name = "positionDoctorId"),
-            inverseJoinColumns = @JoinColumn(name = "userId"))
-    private Set<User> users;*/
 }

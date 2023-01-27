@@ -25,6 +25,9 @@ public class Doctor {
     @OneToOne(mappedBy = "doctor")
     private User user;
 
+    @OneToMany(mappedBy = "doctor")
+    private Set<CalendarTicket> calendarTickets;
+
     public Doctor(long idDoctor, int cabinetNumber, String specialityDoctor) {
         this.idDoctor = idDoctor;
         this.cabinetNumber = cabinetNumber;

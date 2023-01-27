@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Data()
 @NoArgsConstructor
@@ -34,10 +35,25 @@ public class Passport implements Serializable {
     @OneToOne(mappedBy = "passport")
     private User user;
 
+    @ManyToMany(mappedBy = "passports")
+    private Set<CalendarTicket> calendarTicket;
+
     public Passport(String family, String name, String patronymic, LocalDate dateBirth, String address) {
         this.family = family;
         this.name = name;
         this.patronymic = patronymic;
+        this.dateBirth = dateBirth;
+        this.address = address;
+    }
+
+    public Passport(long idPassport, String family, String name, String patronymic,
+                    String contactNumber, LocalDate dateBirth, String gender, String address) {
+        this.idPassport = idPassport;
+        this.family = family;
+        this.name = name;
+        this.patronymic = patronymic;
+        this.contactNumber = contactNumber;
+        this.gender = gender;
         this.dateBirth = dateBirth;
         this.address = address;
     }

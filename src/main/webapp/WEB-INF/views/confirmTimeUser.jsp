@@ -6,7 +6,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>All Doctors</title>
+    <title>Confirm Time</title>
     <link rel="stylesheet"
           href="<c:url value="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/> "/>
     <link rel="stylesheet"
@@ -65,24 +65,13 @@
     <div class="col-md-1"></div>
     <div class=" col-md-4">
         <div>
-            <h1 id="h1r" class=" text-center">Doctors</h1>
-            <c:if test="${doctorsNull!=null}">
-                <h3 class="text-center">${doctorsNull}</h3>
-            </c:if>
-            <c:if test="${doctorsNull==null}">
-                <h2 class="text-center">All Doctors</h2>
-            </c:if>
-            <c:forEach var="doctor" items="${doctors}">
-                <div class="cell three">
-                    <a href="${pageContext.request.contextPath}/calendarTicket?idDoctor=${doctor.idDoctor}"
-                       class="in_active">
-                        <div class="left doctor">
-                            <p class="grey">${doctor.user.passport.family} ${doctor.user.passport.name} ${doctor.user.passport.patronymic}</p>
-                            <h6>${doctor.specialityDoctor},к.${doctor.cabinetNumber}</h6>
-                        </div>
-                    </a>
-                </div>
-            </c:forEach>
+            <h1 id="h1r" class=" text-center">Confirm</h1>
+            <ul>
+                <li>
+                    <a href="${pageContext.request.contextPath}/addUserTimeTicket?idDate=${userForm.idDate}&ticketTime=${userForm.ticketTime}"
+                       class="btn btn-primary">Save time</a>
+                </li>
+            </ul>
         </div>
     </div>
     <div class="col-md-2"></div>

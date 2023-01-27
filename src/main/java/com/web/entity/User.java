@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -30,9 +29,6 @@ public class User implements Serializable {
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "idPassport")
     private Passport passport;
-
-/*    @ManyToMany(mappedBy = "users")
-    private Set<PositionDoctor> positionDoctors;*/
 
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "idDoctor")

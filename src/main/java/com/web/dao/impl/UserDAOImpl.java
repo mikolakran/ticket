@@ -9,10 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.web.dao.UserDAO;
 
-
-import java.util.List;
-import java.util.Set;
-
 @Repository
 @Slf4j
 public class UserDAOImpl implements UserDAO {
@@ -49,33 +45,6 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public User getByEmail(String email) {
         return userJpaRepository.findByEmail(email);
-    }
-
-    @Override
-    public List<User> getListUsers() {
-        return null;
-    }
-
-    @Override
-    public Set<User> getListUsersWhereIdTopic(long id) {
-        return null;
-    }
-
-    @Override
-    public String getRole(User user) {
-       /* String role = null;
-        if (user != null) {
-            if (user.getEmail().equals("mikolakran@gmail.com")) {
-                role = "admin";
-            } else if (user.getRole().equals("doctor")){
-                role = "doctor";
-            }else {
-                role = "user";
-            }
-        }
-        log.trace("UserDAOImpl.getRole(User user) role = " + role + " in user =" + user);
-        return role;*/
-        return null;
     }
 
     private void validationSQL(User user) throws MyException {
