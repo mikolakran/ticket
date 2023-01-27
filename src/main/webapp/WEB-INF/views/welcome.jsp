@@ -27,10 +27,6 @@
             </div>
             <div>
                 <ul class="nav navbar-nav">
-                    <button class="custom-btn btn-6">
-                        <span>
-                        <a href="${pageContext.request.contextPath}/addTopic">Add Topic</a>
-                    </span>
                     </button>
                     <button class="custom-btn btn-6">
                         <span>
@@ -68,26 +64,30 @@
         <div>
             <h1 id="h1r" class=" text-center">Welcome</h1>
             <security:authorize access="hasRole('ROLE_ADMIN')">
-                <c:if test="${topicNull!=null}">
-                    <h3 class="text-center">${topicNull}</h3>
-                </c:if>
-                <c:if test="${topicNull==null}">
-                    <h2 class="text-center">All Topic</h2>
-                </c:if>
                 <c:if test="${userForm.userName!=null}">
                     <h3 style="color: deepskyblue">Hello ${userForm.userName}</h3>
                 </c:if>
-                <c:forEach var="position" items="${positions}">
-                    <ul>
-                        <li>${position.position}
-                    </ul>
-                </c:forEach>
-                <a href="${pageContext.request.contextPath}/addPositionDoctor" class="btn btn-primary">add Position
+                <button class="custom-btn btn-6">
+                        <span>
+                        <a href="${pageContext.request.contextPath}/addPositionDoctor">add Position
                     Doctor</a>
-                <a href="${pageContext.request.contextPath}/addDoctor" class="btn btn-primary">add Doctor</a>
-                <a href="${pageContext.request.contextPath}/upDateUser" class="btn btn-primary">Update user</a>
-                <a href="${pageContext.request.contextPath}/users" class="btn btn-primary">Your users</a>
-                <a href="${pageContext.request.contextPath}/logout" class="btn btn-primary">logout</a>
+                    </span>
+                </button>
+                <button class="custom-btn btn-6">
+                        <span>
+                      <a href="${pageContext.request.contextPath}/addDoctor">add Doctor</a>
+                    </span>
+                </button>
+                <button class="custom-btn btn-6">
+                        <span>
+                         <a href="${pageContext.request.contextPath}/users">Your users</a>
+                    </span>
+                </button>
+                <button class="custom-btn btn-6">
+                        <span>
+                        <a href="${pageContext.request.contextPath}/doctors">Your doctors</a>
+                    </span>
+                </button>
             </security:authorize>
             <security:authorize access="hasRole('ROLE_USER')">
                 <c:if test="${positionNull!=null}">
@@ -101,7 +101,7 @@
                         <div class="col-md-4">
                             <button class="custom-btn btn-6">
                         <span>
-                        <a href="${pageContext.request.contextPath}/doctors?idPosition=${position.positionDoctorId}"
+                        <a href="${pageContext.request.contextPath}/doctorByPosition?idPosition=${position.positionDoctorId}"
                            >${position.position}</a>
                     </span>
                             </button>

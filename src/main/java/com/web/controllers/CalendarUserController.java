@@ -32,11 +32,11 @@ public class CalendarUserController {
     @Autowired
     private PassportFacade passportFacade;
 
-    @GetMapping("/doctors")
-    public ModelAndView displayDoctors(
+    @GetMapping("/doctorByPosition")
+    public ModelAndView displayDoctorsByPosition(
             @SessionAttribute Set<DoctorForm> doctors,
             @SessionAttribute UserForm userSession) {
-        ModelAndView modelAndView = new ModelAndView("doctors");
+        ModelAndView modelAndView = new ModelAndView("doctorByPosition");
         modelAndView.addObject("userForm", userSession);
         modelAndView.addObject("doctors", doctors);
         if (doctors.size() == 0) {

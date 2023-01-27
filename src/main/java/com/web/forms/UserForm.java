@@ -18,6 +18,7 @@ public class UserForm implements Serializable {
     private String userName;
     private String password;
     private String newPassword;
+    private String passwordEmail;
     private String confirmPassword;
     private String email;
     private String role;

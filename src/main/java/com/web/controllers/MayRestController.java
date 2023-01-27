@@ -14,6 +14,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +38,9 @@ public class MayRestController {
 
     @Autowired
     private CalendarTicketFacade calendarTicketFacade;
+
+    @Autowired
+    public JavaMailSender emailSender;
 
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public ResponseEntity<UserForm> addUser(HttpServletRequest request,
@@ -73,12 +78,14 @@ public class MayRestController {
             userForm.setPhoto(multipartFile.getBytes());
         }
         try {
+            //save user
             new Validation.Builder().
                     validationPassSamePass2(userForm.getPassword(), userForm.getConfirmPassword()).build();
+            userForm.setPasswordEmail(userForm.getPassword());
             userForm.setPassword(BCrypt.hashpw(userForm.getPassword(), BCrypt.gensalt(12)));
             userForm.setRole("doctor");
             user = userFacade.save(userForm);
-
+            //save doctor
             Doctor doctor = user.getDoctor();
             DoctorForm doctorForm = new DoctorForm(doctor);
             PositionDoctorForm positionDoctorForm = positionDoctorFacade.findByName(userForm.getPositionDoctor());
@@ -86,7 +93,17 @@ public class MayRestController {
             listDoctor.add(doctorForm);
             positionDoctorForm.setDoctors(listDoctor);
             positionDoctorFacade.update(positionDoctorForm);
-
+            //send email
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setTo(user.getEmail());
+            message.setSubject("Registration user");
+            message.setText("Hello, your login - "+user.getUserName()+" password - "+userForm.getPasswordEmail()+
+                    "  position - "+
+                    positionDoctorForm.getPosition()+" beginning work - " +positionDoctorForm.getBeginningWork()+
+                    " end work - "+positionDoctorForm.getEndWork()+" beginning break - "
+                    +positionDoctorForm.getBeginningBreak()+" end break - "+positionDoctorForm.getEndBreak());
+            this.emailSender.send(message);
+            //create calendar
             LocalDate currentDate = LocalDate.now();
             for (int i = 0; i < 60; i++) {
                 CalendarTicketForm calendarTicketForm = new CalendarTicketForm();

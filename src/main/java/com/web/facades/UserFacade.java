@@ -7,6 +7,9 @@ import com.web.forms.UserForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class UserFacade {
     @Autowired
@@ -32,6 +35,18 @@ public class UserFacade {
         buildUser(user, userForm);
         User resultByName = userDAO.getByName(user.getUserName());
         return new UserForm(resultByName);
+    }
+
+    public List<UserForm> getListUsers() {
+        List<UserForm> userFormList = new ArrayList<>();
+        userDAO.getListUsers().forEach(user1 -> userFormList.add(new UserForm(user1)));
+        return userFormList;
+    }
+
+    public List<UserForm> getListDoctors() {
+        List<UserForm> userFormList = new ArrayList<>();
+        userDAO.getListDoctors().forEach(user1 -> userFormList.add(new UserForm(user1)));
+        return userFormList;
     }
 
     private void buildUser(User user, UserForm userForm) {

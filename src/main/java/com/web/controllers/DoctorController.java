@@ -18,27 +18,9 @@ public class DoctorController {
 
     @Autowired
     private CalendarTicketFacade calendarTicketFacade;
-    @Autowired
-    private PositionDoctorFacade positionDoctorFacade;
 
     @Autowired
     private PassportFacade passportFacade;
-
-    @GetMapping("/addPositionDoctor")
-    public ModelAndView displayAddTopic(@SessionAttribute UserForm userSession) {
-        ModelAndView modelAndView = new ModelAndView("addPositionDoctor");
-        if (userSession.getRole().equals("admin")) {
-            modelAndView.addObject("userForm", userSession);
-        }
-        return modelAndView;
-    }
-
-    @GetMapping("/addDoctor")
-    public ModelAndView getAllPosition() {
-        ModelAndView modelAndView = new ModelAndView("addDoctor");
-        modelAndView.addObject("positions", positionDoctorFacade.findAll());
-        return modelAndView;
-    }
 
     @GetMapping("/displayAllUsers")
     public ModelAndView displayCalendarForDoctor(@RequestParam long idDate,

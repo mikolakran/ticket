@@ -1,5 +1,6 @@
 package com.web.dao.impl;
 
+import com.web.entity.Doctor;
 import com.web.entity.User;
 import com.web.exception.LoginException;
 import com.web.exception.MyException;
@@ -8,6 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.web.dao.UserDAO;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 @Slf4j
@@ -45,6 +49,21 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public User getByEmail(String email) {
         return userJpaRepository.findByEmail(email);
+    }
+
+    @Override
+    public List<User> getListUsers() {
+        List<User> resultAllUser = userJpaRepository.findAll();
+        List<User> resultUserRole = resultAllUser.stream().filter(user -> user.getRole().equals("user")).collect(Collectors.toList());
+        log.trace("UserDAOImpl.getListUsers()");
+        return resultUserRole;
+    }
+
+    @Override
+    public List<User> getListDoctors() {
+        List<User> doctors = userJpaRepository.findAll();
+        log.trace("UserDAOImpl.getListDoctors()");
+        return doctors.stream().filter(user -> user.getRole().equals("doctor")).toList();
     }
 
     private void validationSQL(User user) throws MyException {

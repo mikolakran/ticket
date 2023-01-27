@@ -30,7 +30,7 @@ public class FilterConfig {
     public FilterRegistrationBean<UserDoctorsFilter> postsFilterFilterRegistrationBean(){
         FilterRegistrationBean<UserDoctorsFilter> filterRegistrationBean = new FilterRegistrationBean<>();
         filterRegistrationBean.setFilter(new UserDoctorsFilter(positionDoctorFacade));
-        filterRegistrationBean.addUrlPatterns("/doctors");
+        filterRegistrationBean.addUrlPatterns("/doctorByPosition");
         return filterRegistrationBean;
     }
 }
