@@ -5,9 +5,11 @@ import com.web.entity.CalendarTicket;
 import com.web.entity.Passport;
 import com.web.repository.CalendarTicketJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Repository
@@ -44,6 +46,11 @@ public class CalendarTicketDAOImpl implements CalendarTicketDAO {
     @Override
     public Set<Passport> getListPassport(long idDoctor) {
         return calendarTicketJpaRepository.getListPassportUser(idDoctor).getPassports();
+    }
+
+    @Override
+    public List<CalendarTicket> findByDoctor_IdDoctor(long idDoctor, Pageable pageable) {
+        return calendarTicketJpaRepository.findByDoctor_IdDoctor(idDoctor,pageable);
     }
 
 }

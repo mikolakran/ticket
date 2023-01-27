@@ -8,9 +8,13 @@ import com.web.forms.CalendarTicketForm;
 import com.web.forms.DoctorForm;
 import com.web.forms.PassportForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Component
@@ -45,6 +49,17 @@ public class CalendarTicketFacade {
             passportForms.add(passportForm);
         });
         return passportForms;
+    }
+
+    public List<CalendarTicketForm> findByDoctor_IdDoctor(long idDoctor,int pageNo,int pageSize){
+       Pageable pageable = PageRequest.of(pageNo,pageSize);
+       List<CalendarTicketForm> calendarTicketForms = new ArrayList<>();
+        List<CalendarTicket> byDoctor_idDoctor = calendarTicketDAO.findByDoctor_IdDoctor(idDoctor, pageable);
+        byDoctor_idDoctor.forEach(calendarTicket -> {
+            CalendarTicketForm calendarTicketForm = new CalendarTicketForm(calendarTicket);
+            calendarTicketForms.add(calendarTicketForm);
+        });
+        return calendarTicketForms;
     }
 
     private void buildUser(CalendarTicket calendarTicket , CalendarTicketForm calendarTicketForm){

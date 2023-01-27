@@ -74,7 +74,7 @@
             </c:if>
             <c:forEach var="doctor" items="${doctors}">
                 <div class="cell three">
-                    <a href="${pageContext.request.contextPath}/calendarTicket?idDoctor=${doctor.idDoctor}"
+                    <a href="${pageContext.request.contextPath}/calendarTicket/${0}?idDoctor=${doctor.idDoctor}"
                        class="in_active">
                         <div class="left doctor">
                             <p class="grey">${doctor.user.passport.family} ${doctor.user.passport.name} ${doctor.user.passport.patronymic}</p>

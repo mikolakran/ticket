@@ -33,8 +33,9 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .securityMatcher("/", "/login", "/addUser",
-                        "/welcome"/*, "/users", "/upDateUser", "/addPositionDoctor/**"
-                ,"/addDoctor","/doctors/**","/displayAllUsers","/confirmTimeUser","/doctorByPosition"*/)
+                        "/welcome", "/users", "/upDateUser", "/addPositionDoctor/**"
+                ,"/addDoctor","/doctors/**","/displayAllUsers","/confirmTimeUser","/doctorByPosition",
+                        "/calendarTicket/**")
                 .authorizeHttpRequests(authorize ->
                         authorize
                                 .requestMatchers("/", "/login", "/addUser").permitAll()
@@ -42,6 +43,7 @@ public class SecurityConfiguration {
                                 .requestMatchers("/users/**","/doctors/**","/addPositionDoctor","/addDoctor").hasRole("ADMIN")
                                 .requestMatchers("/displayAllUsers").hasRole("DOCTOR")
                                 .requestMatchers("/doctorByPosition/**").hasRole("USER")
+                                .requestMatchers("/calendarTicket/**").hasRole("USER")
                                 .requestMatchers("/confirmTimeUser").hasRole("USER")
                                 .requestMatchers("/addPost/**").hasRole("USER")
                                 .requestMatchers("/updatePost/**").hasRole("USER")
