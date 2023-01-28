@@ -13,8 +13,9 @@
     <link rel="stylesheet"
           href="<c:url value="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/> "/>
     <link rel="stylesheet" href="/css/user.css"/>
-    <link rel="stylesheet" href="/css/table.css"/>
     <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="/css/table.css"/>
+    <link rel="stylesheet" href="/css/tables.css"/>
 </head>
 <body>
 <header>
@@ -88,14 +89,31 @@
                         <a href="${pageContext.request.contextPath}/doctors">Your doctors</a>
                     </span>
                 </button>
+                //add position
             </security:authorize>
             <security:authorize access="hasRole('ROLE_USER')">
-                <c:if test="${positionNull!=null}">
-                    <h3 class="text-center">${positionNull}</h3>
+                <c:if test="${calendars.size()!=0}">
+                    <h4 style="color: red">Для отмены записи звонить в регистратуру</h4>
+            <table>
+                <tr>
+                    <th>Local Date</th>
+                    <th>Cabinet Number</th>
+                    <th>Speciality Doctor</th>
+                    <th>Family Doctor</th>
+                    <th>Name Doctor</th>
+                </tr>
+                <c:forEach var="calendar" items="${calendars}">
+                <tr>
+                    <td>${calendar.localDate}</td>
+                    <td>${calendar.doctor.cabinetNumber}</td>
+                    <td>${calendar.doctor.specialityDoctor}</td>
+                    <td>${calendar.doctor.user.passport.family}</td>
+                    <td>${calendar.doctor.user.passport.name}</td>
+                </tr>
+                </c:forEach>
+            </table>
                 </c:if>
-                <c:if test="${positionNull==null}">
-                    <h2 class="text-center">All Topic</h2>
-                </c:if>
+                <c:if test="${calendars.size()==0}">
                 <div class="content">
                     <c:forEach var="position" items="${positions}">
                         <div class="col-md-4">
@@ -108,6 +126,7 @@
                         </div>
                     </c:forEach>
                 </div>
+                </c:if>
             </security:authorize>
             <security:authorize access="hasRole('ROLE_DOCTOR')">
             <c:forEach var="calendar" items="${calendarDoctors}">
@@ -142,7 +161,25 @@
             </security:authorize>
         </div>
     </div>
-    <div class="col-md-2"></div>
+    <div class="col-md-2">
+        <security:authorize access="hasRole('ROLE_USER')">
+        <c:if test="${calendars.size()!=0}">
+            <h4>Запись к врачу</h4>
+            <div class="content">
+                <c:forEach var="position" items="${positions}">
+                    <div >
+                        <button class="custom-btn btn-6">
+                        <span>
+                        <a href="${pageContext.request.contextPath}/doctorByPosition?idPosition=${position.positionDoctorId}"
+                        >${position.position}</a>
+                    </span>
+                        </button>
+                    </div>
+                </c:forEach>
+            </div>
+        </c:if>
+        </security:authorize>
+    </div>
     <div class="col-md-2"></div>
 </div>
 

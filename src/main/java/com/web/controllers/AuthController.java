@@ -1,6 +1,7 @@
 package com.web.controllers;
 
 import com.web.facades.CalendarTicketFacade;
+import com.web.facades.PassportFacade;
 import com.web.facades.PositionDoctorFacade;
 import com.web.facades.UserFacade;
 import com.web.forms.CalendarTicketForm;
@@ -27,6 +28,7 @@ public class AuthController {
     @Autowired
     private CalendarTicketFacade calendarTicketFacade;
 
+
     @GetMapping("/")
     public String test() {
         return "home";
@@ -49,9 +51,14 @@ public class AuthController {
     public ModelAndView displayWelcome(@PathVariable int pageNo,
                                        @SessionAttribute UserForm userSession,
                                        @SessionAttribute(value = "positions", required = false)
-                                       List<PositionDoctorForm> positions) {
+                                       List<PositionDoctorForm> positions,
+                                       @SessionAttribute(value = "calendars", required = false)
+                                           List<CalendarTicketForm> calendars) {
         ModelAndView modelAndView = new ModelAndView("welcome");
         modelAndView.addObject("userForm", userSession);
+        if (calendars!=null){
+            modelAndView.addObject("calendars",calendars);
+        }
         if (positions != null) {
             modelAndView.addObject(positions);
         } else {

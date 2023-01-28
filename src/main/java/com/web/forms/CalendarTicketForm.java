@@ -2,6 +2,8 @@ package com.web.forms;
 
 import com.web.entity.CalendarTicket;
 import com.web.entity.Doctor;
+import com.web.entity.Passport;
+import com.web.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -52,8 +54,9 @@ public class CalendarTicketForm implements Serializable {
         this.time16_00 = calendarTicket.getTime16_00();
         this.time16_30 = calendarTicket.getTime16_30();
         Doctor doctor = calendarTicket.getDoctor();
+        User user = doctor.getUser();
         this.doctor = new DoctorForm(doctor.getIdDoctor(),doctor.getCabinetNumber(),
-                doctor.getSpecialityDoctor());
+                doctor.getSpecialityDoctor(),user);
     }
 
     @Override

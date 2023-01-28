@@ -162,7 +162,7 @@ public class CalendarUserController {
             calendarTicketForm.setPassports(listPassport);
             calendarTicketFacade.save(calendarTicketForm);
             modelAndView.addObject("userForm", userSession);
-            response.sendRedirect(request.getContextPath() + "/welcome");
+            response.sendRedirect(request.getContextPath() + "/welcome/0");
             return modelAndView;
         }
     }

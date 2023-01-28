@@ -1,5 +1,6 @@
 package com.web;
 
+import com.web.facades.PassportFacade;
 import com.web.facades.PositionDoctorFacade;
 import com.web.filters.UserDoctorsFilter;
 import com.web.filters.WelcomeFilter;
@@ -14,11 +15,14 @@ public class FilterConfig {
     @Autowired
     private PositionDoctorFacade positionDoctorFacade;
 
+    @Autowired
+    private PassportFacade passportFacade;
+
 
     @Bean
     public FilterRegistrationBean<WelcomeFilter> welcomeFilterFilterRegistrationBean(){
         FilterRegistrationBean<WelcomeFilter> filterRegistrationBean = new FilterRegistrationBean<>();
-        filterRegistrationBean.setFilter(new WelcomeFilter(positionDoctorFacade));
+        filterRegistrationBean.setFilter(new WelcomeFilter(positionDoctorFacade,passportFacade));
         filterRegistrationBean.addUrlPatterns("/welcome/0");
         return filterRegistrationBean;
     }

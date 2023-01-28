@@ -1,7 +1,9 @@
 package com.web.filters;
 
 
+import com.web.facades.PassportFacade;
 import com.web.facades.PositionDoctorFacade;
+import com.web.forms.CalendarTicketForm;
 import com.web.forms.PositionDoctorForm;
 import com.web.forms.UserForm;
 import jakarta.servlet.Filter;
@@ -11,19 +13,23 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class WelcomeFilter implements Filter {
 
     private PositionDoctorFacade positionDoctorFacade;
+    private PassportFacade passportFacade;
 
-    public WelcomeFilter(PositionDoctorFacade positionDoctorFacade) {
+    public WelcomeFilter(PositionDoctorFacade positionDoctorFacade, PassportFacade passportFacade) {
         this.positionDoctorFacade = positionDoctorFacade;
+        this.passportFacade = passportFacade;
     }
 
     @Override
@@ -36,6 +42,10 @@ public class WelcomeFilter implements Filter {
             session.removeAttribute("userAndAdmin");
             if (userForm != null) {
                 if (userForm.getRole().equals("user")) {
+                    Set<CalendarTicketForm> calendars =
+                            passportFacade.getListCalendarUser(userForm.getPassport().getIdPassport());
+                    session.setAttribute("calendars",calendars);
+
                     List<PositionDoctorForm> positions = positionDoctorFacade.findAll();
                     if (positions.size() != 0) {
                         session.setAttribute("positions", positions);
