@@ -28,7 +28,7 @@
                 <ul class="nav navbar-nav">
                     <button class="custom-btn btn-6">
                         <span>
-                        <a href="${pageContext.request.contextPath}/welcome">welcome</a>
+                        <a href="${pageContext.request.contextPath}/welcome/${0}">welcome</a>
                     </span>
                     </button>
                     <button class="custom-btn btn-6">

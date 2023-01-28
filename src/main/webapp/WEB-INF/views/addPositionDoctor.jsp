@@ -6,7 +6,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Регистрация</title>
+    <title>Add Position Doctor</title>
     <script
             src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
@@ -28,7 +28,7 @@
                 <ul class="nav navbar-nav">
                     <button class="custom-btn btn-6">
                         <span>
-                        <a href="${pageContext.request.contextPath}/welcome">welcome</a>
+                        <a href="${pageContext.request.contextPath}/welcome/${0}">welcome</a>
                     </span>
                     </button>
                     <button class="custom-btn btn-6">
@@ -161,7 +161,7 @@
                 if (data.error) {
                     $(".personTable").text(data.error);
                 } else {
-                    window.location.href = url("welcome");
+                    window.location.href = url("welcome/${0}");
                 }
             }
         }).fail(function (data) {

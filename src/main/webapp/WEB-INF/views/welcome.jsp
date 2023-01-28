@@ -44,7 +44,7 @@
                                     <img src="${pageContext.request.contextPath}/image" title="user-name"/>
                                 </c:if>
                                 <c:if test="${userForm.photo==null}">
-                                    <img src="image/smail.jfif" title="user-name"/>
+                                    <img src="${pageContext.request.contextPath}/image/smail.jfif" title="user-name"/>
                                 </c:if>
                                 <span>Hello ${userForm.userName}</span>
                             </c:if>
@@ -110,24 +110,35 @@
                 </div>
             </security:authorize>
             <security:authorize access="hasRole('ROLE_DOCTOR')">
-                <c:if test="${calendarDoctorNull!=null}">
-                    <h3 class="text-center">${calendarDoctorNull}</h3>
-                </c:if>
-                <c:if test="${calendarDoctorNull==null}">
-                    <h2 class="text-center">All Calendar</h2>
-                </c:if>
-                <c:forEach var="calendar" items="${calendarDoctor}">
-                    <div class="col-md-4">
-                        <div class="cell three">
-                            <button class="custom-btn btn-6">
+            <c:forEach var="calendar" items="${calendarDoctors}">
+                <div class="col-md-4">
+                    <div class="cell three">
+                        <button class="custom-btn btn-6">
                         <span>
                          <a href="${pageContext.request.contextPath}/displayAllUsers?idDate=${calendar.idDate}"
                          >${calendar.localDate}</a>
                     </span>
-                            </button>
-                        </div>
+                        </button>
                     </div>
-                </c:forEach>
+                </div>
+            </c:forEach>
+        </div>
+        <div>
+            <c:if test="${pageMinus!=-1}">
+                <button class="custom-btn btn-6">
+                        <span>
+                         <a href="${pageContext.request.contextPath}/welcome/${pageNo-1}?idDoctor=${idDoctor}"
+                         >Назад</a>
+                    </span>
+                </button>
+            </c:if>
+            <button class="custom-btn btn-6">
+                        <span>
+                         <a href="${pageContext.request.contextPath}/welcome/${pageNo+1}?idDoctor=${idDoctor}"
+                         >Далее</a>
+                    </span>
+            </button>
+        </div>
             </security:authorize>
         </div>
     </div>
