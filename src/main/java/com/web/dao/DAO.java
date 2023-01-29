@@ -1,7 +1,10 @@
 package com.web.dao;
 
+import com.web.exception.LoginException;
+import com.web.exception.MyException;
+
 public interface DAO<T,K> {
-    T save(T t);
+    T save(T t) throws MyException;
 
     T get(K k);
 

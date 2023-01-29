@@ -42,13 +42,14 @@
     </nav>
 </header>
 <div class="container">
-
     <form class="well form-horizontal" action="addUser" method="post" id="contact_form">
         <fieldset>
-
             <!-- Form Name -->
             <legend>
                 <center><h2><b>Registration Form</b></h2></center>
+            </legend>
+            <legend>
+                <center><h2><b class="personTable"></b></h2></center>
             </legend>
             <br>
 
@@ -91,7 +92,7 @@
             </div>
 
             <div class="form-group">
-                <label class="col-md-4 control-label">Patronymic</label>
+                <label class="col-md-4 control-label">Address</label>
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>

@@ -4,6 +4,7 @@ import com.web.dao.CalendarTicketDAO;
 import com.web.entity.CalendarTicket;
 import com.web.entity.Doctor;
 import com.web.entity.Passport;
+import com.web.exception.MyException;
 import com.web.forms.CalendarTicketForm;
 import com.web.forms.DoctorForm;
 import com.web.forms.PassportForm;
@@ -23,7 +24,7 @@ public class CalendarTicketFacade {
     @Autowired
     private CalendarTicketDAO calendarTicketDAO;
 
-    public CalendarTicketForm save(CalendarTicketForm calendarTicketForm){
+    public CalendarTicketForm save(CalendarTicketForm calendarTicketForm) throws MyException {
         CalendarTicket calendarTicket = new CalendarTicket();
         buildUser(calendarTicket, calendarTicketForm);
         CalendarTicket resultSave = calendarTicketDAO.save(calendarTicket);

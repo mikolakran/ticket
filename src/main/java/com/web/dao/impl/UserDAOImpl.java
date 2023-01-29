@@ -5,6 +5,7 @@ import com.web.entity.User;
 import com.web.exception.LoginException;
 import com.web.exception.MyException;
 import com.web.repository.UserJpaRepository;
+import com.web.validation.Validation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -22,7 +23,10 @@ public class UserDAOImpl implements UserDAO {
 
 
     @Override
-    public User save(User user) {
+    public User save(User user) throws MyException {
+        log.trace("UserDAOImpl.save(User user) " + user);
+        new Validation.Builder().validationName(user.getUserName()).validationEmail(user.getEmail()).build();
+        validationSQL(user);
         return userJpaRepository.save(user);
     }
 

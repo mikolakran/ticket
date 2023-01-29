@@ -1,5 +1,6 @@
 package com.web.controllers;
 
+import com.web.exception.MyException;
 import com.web.facades.CalendarTicketFacade;
 import com.web.facades.DoctorFacade;
 import com.web.facades.PassportFacade;
@@ -160,7 +161,11 @@ public class CalendarUserController {
                 calendarTicketForm.setTime16_30((int) passportForm.getIdPassport());
             }
             calendarTicketForm.setPassports(listPassport);
-            calendarTicketFacade.save(calendarTicketForm);
+            try {
+                calendarTicketFacade.save(calendarTicketForm);
+            } catch (MyException e) {
+                throw new RuntimeException(e);
+            }
             modelAndView.addObject("userForm", userSession);
             response.sendRedirect(request.getContextPath() + "/welcome/0");
             return modelAndView;

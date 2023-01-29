@@ -3,6 +3,7 @@ package com.web.facades;
 import com.web.dao.PositionDoctorDAO;
 import com.web.entity.Doctor;
 import com.web.entity.PositionDoctor;
+import com.web.exception.MyException;
 import com.web.forms.DoctorForm;
 import com.web.forms.PositionDoctorForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class PositionDoctorFacade {
     @Autowired
     private PositionDoctorDAO positionDoctorDAO;
 
-    public PositionDoctorForm save(PositionDoctorForm positionDoctorForm){
+    public PositionDoctorForm save(PositionDoctorForm positionDoctorForm) throws MyException {
         PositionDoctor positionDoctor = new PositionDoctor();
         buildPosition(positionDoctor,positionDoctorForm);
         PositionDoctor resultSave = positionDoctorDAO.save(positionDoctor);

@@ -3,6 +3,7 @@ package com.web.facades;
 import com.web.dao.DoctorDAO;
 import com.web.entity.CalendarTicket;
 import com.web.entity.Doctor;
+import com.web.exception.MyException;
 import com.web.forms.CalendarTicketForm;
 import com.web.forms.DoctorForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class DoctorFacade {
     @Autowired
     private DoctorDAO doctorDAO;
 
-    public DoctorForm save(DoctorForm doctorForm) {
+    public DoctorForm save(DoctorForm doctorForm) throws MyException {
         Doctor doctor = new Doctor();
         buildUser(doctor,doctorForm);
         Doctor resultSave = doctorDAO.save(doctor);

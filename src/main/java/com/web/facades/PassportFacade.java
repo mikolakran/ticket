@@ -3,6 +3,7 @@ package com.web.facades;
 import com.web.dao.PassportDAO;
 import com.web.entity.CalendarTicket;
 import com.web.entity.Passport;
+import com.web.exception.MyException;
 import com.web.forms.CalendarTicketForm;
 import com.web.forms.PassportForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class PassportFacade {
     @Autowired
     private PassportDAO passportDAO;
 
-    public Passport save(Passport passport){
+    public Passport save(Passport passport) throws MyException {
         return passportDAO.save(passport);
     }
 

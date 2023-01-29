@@ -52,7 +52,8 @@ public class MayRestController {
         }
         try {
             new Validation.Builder().
-                    validationPassSamePass2(userForm.getPassword(), userForm.getConfirmPassword()).build();
+                    validationPassSamePass2(userForm.getPassword(), userForm.getConfirmPassword())
+                    .validationPassword(userForm.getPassword()).build();
             userForm.setPassword(BCrypt.hashpw(userForm.getPassword(), BCrypt.gensalt(12)));
             if (userForm.getEmail().equals("mikolakran@gmail.ru")) {
                 userForm.setRole("admin");
@@ -65,7 +66,7 @@ public class MayRestController {
         } catch (MyException e) {
             user = new UserForm();
             user.setError(e.getMessage());
-            return new ResponseEntity<>(user, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(user, HttpStatus.OK);
         }
     }
 
@@ -80,7 +81,8 @@ public class MayRestController {
         try {
             //save user
             new Validation.Builder().
-                    validationPassSamePass2(userForm.getPassword(), userForm.getConfirmPassword()).build();
+                    validationPassSamePass2(userForm.getPassword(), userForm.getConfirmPassword())
+                    .validationPassword(userForm.getPassword()).build();
             userForm.setPasswordEmail(userForm.getPassword());
             userForm.setPassword(BCrypt.hashpw(userForm.getPassword(), BCrypt.gensalt(12)));
             userForm.setRole("doctor");
@@ -128,7 +130,12 @@ public class MayRestController {
     @RequestMapping(value = "/addPositionDoctor", method = RequestMethod.POST)
     public ResponseEntity<PositionDoctorForm> addPositionDoctor(
             @RequestBody() PositionDoctorForm positionDoctorForm) {
-        PositionDoctorForm resultSave = positionDoctorFacade.save(positionDoctorForm);
+        PositionDoctorForm resultSave = null;
+        try {
+            resultSave = positionDoctorFacade.save(positionDoctorForm);
+        } catch (MyException e) {
+            throw new RuntimeException(e);
+        }
         return new ResponseEntity<>(resultSave, HttpStatus.OK);
     }
 

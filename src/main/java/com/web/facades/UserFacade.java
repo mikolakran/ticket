@@ -3,6 +3,7 @@ package com.web.facades;
 import com.web.dao.DoctorDAO;
 import com.web.dao.UserDAO;
 import com.web.entity.User;
+import com.web.exception.MyException;
 import com.web.forms.UserForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,7 +19,7 @@ public class UserFacade {
     @Autowired
     private DoctorDAO doctorDAO;
 
-    public UserForm save(UserForm userForm){
+    public UserForm save(UserForm userForm) throws MyException {
         User user = new User();
         buildUser(user, userForm);
         if (userForm.getDoctor()!=null){
