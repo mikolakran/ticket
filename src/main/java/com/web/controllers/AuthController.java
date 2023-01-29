@@ -1,8 +1,6 @@
 package com.web.controllers;
 
 import com.web.facades.CalendarTicketFacade;
-import com.web.facades.PassportFacade;
-import com.web.facades.PositionDoctorFacade;
 import com.web.facades.UserFacade;
 import com.web.forms.CalendarTicketForm;
 import com.web.forms.PositionDoctorForm;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
@@ -53,12 +52,15 @@ public class AuthController {
                                        @SessionAttribute(value = "positions", required = false)
                                        List<PositionDoctorForm> positions,
                                        @SessionAttribute(value = "calendars", required = false)
-                                           List<CalendarTicketForm> calendars) {
+                                       List<CalendarTicketForm> calendars) {
         ModelAndView modelAndView = new ModelAndView("welcome");
         modelAndView.addObject("userForm", userSession);
-        if (calendars!=null){
-            modelAndView.addObject("calendars",calendars);
+
+        if (calendars != null) {
+            findFieldNameTime(userSession, calendars);
+            modelAndView.addObject("calendars", calendars);
         }
+
         if (positions != null) {
             modelAndView.addObject(positions);
         } else {
@@ -67,9 +69,9 @@ public class AuthController {
             int pageMinus = 0;
             if (pageNo == -1) {
                 pageNo = 0;
-                pageMinus = - 1;
+                pageMinus = -1;
             }
-            if (userSession.getDoctor()!=null) {
+            if (userSession.getDoctor() != null) {
                 List<CalendarTicketForm> byDoctor_idDoctor =
                         calendarTicketFacade.findByDoctor_IdDoctor(userSession.getDoctor().getIdDoctor(), pageNo, pageSize);
                 if (byDoctor_idDoctor.size() != 0) {
@@ -91,5 +93,31 @@ public class AuthController {
     @GetMapping("/addUser")
     public String registration() {
         return "addUser";
+    }
+
+    private void findFieldNameTime(UserForm userSession, List<CalendarTicketForm> calendars) {
+        int idPassport = (int) userSession.getPassport().getIdPassport();
+        for (CalendarTicketForm calendar : calendars) {
+            Class<? extends CalendarTicketForm> aClass = calendar.getClass();
+            Field[] declaredFields = aClass.getDeclaredFields();
+            for (Field declaredField : declaredFields) {
+                declaredField.setAccessible(true);
+                try {
+                    Object o = declaredField.get(calendar);
+                    if (o != null) {
+                        if (o.equals(idPassport)) {
+                            if (!declaredField.getName().equals("idDate")) {
+                                String name = declaredField.getName();
+                                name = name.replace("time", "");
+                                name = name.replace("_", "-");
+                                calendar.setNameTime(name);
+                            }
+                        }
+                    }
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
     }
 }

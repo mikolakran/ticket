@@ -60,8 +60,7 @@
 </header>
 <div class="container-fluid">
     <div id="men-left" class="rad col-md-2"></div>
-    <div class="col-md-1"></div>
-    <div class=" col-md-4">
+    <div class=" col-md-6">
         <div>
             <h1 id="h1r" class=" text-center">Welcome</h1>
             <security:authorize access="hasRole('ROLE_ADMIN')">
@@ -97,6 +96,7 @@
             <table>
                 <tr>
                     <th>Local Date</th>
+                    <th>Time</th>
                     <th>Cabinet Number</th>
                     <th>Speciality Doctor</th>
                     <th>Family Doctor</th>
@@ -105,6 +105,7 @@
                 <c:forEach var="calendar" items="${calendars}">
                 <tr>
                     <td>${calendar.localDate}</td>
+                    <td>${calendar.nameTime}</td>
                     <td>${calendar.doctor.cabinetNumber}</td>
                     <td>${calendar.doctor.specialityDoctor}</td>
                     <td>${calendar.doctor.user.passport.family}</td>
@@ -161,7 +162,7 @@
             </security:authorize>
         </div>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-1">
         <security:authorize access="hasRole('ROLE_USER')">
         <c:if test="${calendars.size()!=0}">
             <h4>Запись к врачу</h4>
@@ -180,7 +181,6 @@
         </c:if>
         </security:authorize>
     </div>
-    <div class="col-md-2"></div>
 </div>
 
 </body>

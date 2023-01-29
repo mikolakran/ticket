@@ -66,12 +66,12 @@ public class CalendarUserController {
             pageNo = 0;
             pageMinus = - 1;
         }
-            List<CalendarTicketForm> byDoctor_idDoctor =
+            List<CalendarTicketForm> byIdDoctors =
                     calendarTicketFacade.findByDoctor_IdDoctor(idDoctor, pageNo, pageSize);
 
-            listCalendarUser.forEach(calendar -> byDoctor_idDoctor.removeIf(calendar::equals));
+            listCalendarUser.forEach(calendar -> byIdDoctors.removeIf(calendar::equals));
 
-            List<CalendarTicketForm> collect = byDoctor_idDoctor.stream().filter(calendar ->
+            List<CalendarTicketForm> collect = byIdDoctors.stream().filter(calendar ->
                             currentDate.isBefore(calendar.getLocalDate()) ||
                                     currentDate.isEqual(calendar.getLocalDate()))
                     .sorted(Comparator.comparing(CalendarTicketForm::getLocalDate)).toList();

@@ -33,6 +33,8 @@ public class CalendarTicketForm implements Serializable {
     private int time15_30;
     private int time16_00;
     private int time16_30;
+
+    private String nameTime;
     private DoctorForm doctor;
     private Set<PassportForm> passports;
     public CalendarTicketForm(CalendarTicket calendarTicket) {
@@ -79,6 +81,7 @@ public class CalendarTicketForm implements Serializable {
                 ", time15_30=" + time15_30 +
                 ", time16_00=" + time16_00 +
                 ", time16_30=" + time16_30 +
+                ", nameTime='" + nameTime + '\'' +
                 '}';
     }
 }
