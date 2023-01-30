@@ -3,7 +3,7 @@ package com.web.filters;
 
 import com.web.facades.PassportFacade;
 import com.web.facades.PositionDoctorFacade;
-import com.web.forms.CalendarTicketForm;
+import com.web.forms.CalendarForm;
 import com.web.forms.PositionDoctorForm;
 import com.web.forms.UserForm;
 import jakarta.servlet.Filter;
@@ -43,14 +43,14 @@ public class WelcomeFilter implements Filter {
             if (userForm != null) {
                 if (userForm.getRole().equals("user")) {
                     LocalDate currentDate = LocalDate.now();
-                    Set<CalendarTicketForm> calendars =
+                    Set<CalendarForm> calendars =
                             passportFacade.getListCalendarUser(userForm.getPassport().getIdPassport());
 
-                    List<CalendarTicketForm> calendarTicketForms = calendars.stream()
+                    List<CalendarForm> calendarForms = calendars.stream()
                             .filter(calendar -> currentDate.isBefore(calendar.getLocalDate()) ||
                             currentDate.isEqual(calendar.getLocalDate())).toList();
 
-                    session.setAttribute("calendars",calendarTicketForms);
+                    session.setAttribute("calendars", calendarForms);
 
                     List<PositionDoctorForm> positions = positionDoctorFacade.findAll();
                     if (positions.size() != 0) {

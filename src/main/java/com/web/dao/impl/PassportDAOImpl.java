@@ -1,6 +1,7 @@
 package com.web.dao.impl;
 
-import com.web.entity.CalendarTicket;
+import com.web.entity.Calendar;
+import com.web.entity.MedicalHistory;
 import com.web.repository.PassportJpaRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,12 @@ public class PassportDAOImpl implements PassportDAO {
     }
 
     @Override
-    public Set<CalendarTicket> getListCalendar(long idDoctor) {
-        return passportJpaRepository.getListCalendarUser(idDoctor).getCalendarTicket();
+    public Set<Calendar> getListCalendar(long idDoctor) {
+        return passportJpaRepository.getListCalendarUser(idDoctor).getCalendar();
+    }
+
+    @Override
+    public Set<MedicalHistory> getListHistory(long idPassport) {
+        return passportJpaRepository.getListMedicalHistory(idPassport).getMedicalHistory();
     }
 }

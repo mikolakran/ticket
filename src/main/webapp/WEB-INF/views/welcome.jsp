@@ -135,7 +135,7 @@
                     <div class="cell three">
                         <button class="custom-btn btn-6">
                         <span>
-                         <a href="${pageContext.request.contextPath}/displayAllUsers?idDate=${calendar.idDate}"
+                         <a href="${pageContext.request.contextPath}/allUsers?idDate=${calendar.idDate}"
                          >${calendar.localDate}</a>
                     </span>
                         </button>

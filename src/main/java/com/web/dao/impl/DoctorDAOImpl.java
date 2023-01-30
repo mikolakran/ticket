@@ -1,7 +1,7 @@
 package com.web.dao.impl;
 
 import com.web.dao.DoctorDAO;
-import com.web.entity.CalendarTicket;
+import com.web.entity.Calendar;
 import com.web.entity.Doctor;
 import com.web.repository.DoctorJpaRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +37,7 @@ public class DoctorDAOImpl implements DoctorDAO {
     }
 
     @Override
-    public Set<CalendarTicket> getCalendar(long id) {
-        return doctorJpaRepository.getCalendar(id).getCalendarTickets();
+    public Set<Calendar> getCalendar(long id) {
+        return doctorJpaRepository.getCalendar(id).getCalendars();
     }
 }

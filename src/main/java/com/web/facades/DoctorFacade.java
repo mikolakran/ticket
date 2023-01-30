@@ -1,10 +1,10 @@
 package com.web.facades;
 
 import com.web.dao.DoctorDAO;
-import com.web.entity.CalendarTicket;
+import com.web.entity.Calendar;
 import com.web.entity.Doctor;
 import com.web.exception.MyException;
-import com.web.forms.CalendarTicketForm;
+import com.web.forms.CalendarForm;
 import com.web.forms.DoctorForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -33,14 +33,14 @@ public class DoctorFacade {
         return new DoctorForm(resultDoctor);
     }
 
-    public Set<CalendarTicketForm> getCalendar(long idDoctor){
-        Set<CalendarTicketForm> calendarTicketForms = new HashSet<>();
-        Set<CalendarTicket> listCalendar = doctorDAO.getCalendar(idDoctor);
+    public Set<CalendarForm> getCalendar(long idDoctor){
+        Set<CalendarForm> calendarForms = new HashSet<>();
+        Set<Calendar> listCalendar = doctorDAO.getCalendar(idDoctor);
         listCalendar.forEach(calendarTicket -> {
-            CalendarTicketForm calendarTicketForm = new CalendarTicketForm(calendarTicket);
-            calendarTicketForms.add(calendarTicketForm);
+            CalendarForm calendarForm = new CalendarForm(calendarTicket);
+            calendarForms.add(calendarForm);
         });
-        return calendarTicketForms;
+        return calendarForms;
     }
 
     private void buildUser(Doctor doctor, DoctorForm doctorForm) {
@@ -48,20 +48,20 @@ public class DoctorFacade {
         doctor.setCabinetNumber(doctorForm.getCabinetNumber());
         doctor.setSpecialityDoctor(doctorForm.getSpecialityDoctor());
         doctor.setUser(doctorForm.getUser());
-        Set<CalendarTicket> calendars = new HashSet<>();
-        Set<CalendarTicketForm> calendarTickets = doctorForm.getCalendarTickets();
+        Set<Calendar> calendars = new HashSet<>();
+        Set<CalendarForm> calendarTickets = doctorForm.getCalendarTickets();
         if (calendarTickets!=null){
             calendarTickets.forEach(calendarTicketForm -> {
-                CalendarTicket calendarTicket = new CalendarTicket(calendarTicketForm.getIdDate(),calendarTicketForm.getLocalDate()
+                Calendar calendar = new Calendar(calendarTicketForm.getIdDate(),calendarTicketForm.getLocalDate()
                         ,calendarTicketForm.getTime8_30(),calendarTicketForm.getTime9_00(),calendarTicketForm.getTime9_30(),
                         calendarTicketForm.getTime10_00(),calendarTicketForm.getTime10_30(),calendarTicketForm.getTime11_00(),
                         calendarTicketForm.getTime11_30(),calendarTicketForm.getTime13_00(),calendarTicketForm.getTime13_30(),
                         calendarTicketForm.getTime14_00(),calendarTicketForm.getTime14_30(),calendarTicketForm.getTime15_00(),
                         calendarTicketForm.getTime15_30(),calendarTicketForm.getTime16_00(),calendarTicketForm.getTime16_30(),
                         calendarTicketForm.getDoctor());
-                calendars.add(calendarTicket);
+                calendars.add(calendar);
             });
-            doctor.setCalendarTickets(calendars);
+            doctor.setCalendars(calendars);
         }
     }
 }

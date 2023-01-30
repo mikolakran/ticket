@@ -71,7 +71,7 @@
                     <div class="cell three">
                         <button class="custom-btn btn-6">
                         <span>
-                         <a href="${pageContext.request.contextPath}/ticketTimes?idDate=${calendar.idDate}"
+                         <a href="${pageContext.request.contextPath}/time?idDate=${calendar.idDate}"
                          >${calendar.localDate}</a>
                     </span>
                         </button>
@@ -83,14 +83,14 @@
             <c:if test="${pageMinus!=-1}">
                 <button class="custom-btn btn-6">
                         <span>
-                         <a href="${pageContext.request.contextPath}/calendarTicket/${pageNo-1}?idDoctor=${idDoctor}"
+                         <a href="${pageContext.request.contextPath}/calendarForUser/${pageNo-1}?idDoctor=${idDoctor}"
                          >Назад</a>
                     </span>
                 </button>
             </c:if>
             <button class="custom-btn btn-6">
                         <span>
-                         <a href="${pageContext.request.contextPath}/calendarTicket/${pageNo+1}?idDoctor=${idDoctor}"
+                         <a href="${pageContext.request.contextPath}/calendarForUser/${pageNo+1}?idDoctor=${idDoctor}"
                          >Далее</a>
                     </span>
             </button>

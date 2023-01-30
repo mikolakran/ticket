@@ -6,11 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.List;
-
-public interface PassportJpaRepository extends JpaRepository<Passport,Long> {
-    @Query("SELECT t FROM Passport t LEFT JOIN FETCH t.calendar where t.idPassport = :id")
-    Passport getListCalendarUser(@Param("id") long id);
+public interface MedicalHistoryJpaRepository extends JpaRepository<MedicalHistory,Long> {
     @Query("SELECT t FROM Passport t LEFT JOIN FETCH t.medicalHistory where t.idPassport = :id")
-    Passport getListMedicalHistory(@Param("id") long id);
+    Passport getListHistory(@Param("id") long id);
 }

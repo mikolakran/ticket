@@ -13,7 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "calendarTicket")
-public class CalendarTicket implements Serializable {
+public class Calendar implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idDate;
@@ -62,9 +62,9 @@ public class CalendarTicket implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "id_passport"))
     private Set<Passport> passports;
 
-    public CalendarTicket(int idDate ,LocalDate localDate, int time8_30, int time9_00, int time9_30, int time10_00, int time10_30,
-                          int time11_00, int time11_30, int time13_00, int time13_30, int time14_00, int time14_30,
-                          int time15_00, int time15_30, int time16_00, int time16_30) {
+    public Calendar(int idDate , LocalDate localDate, int time8_30, int time9_00, int time9_30, int time10_00, int time10_30,
+                    int time11_00, int time11_30, int time13_00, int time13_30, int time14_00, int time14_30,
+                    int time15_00, int time15_30, int time16_00, int time16_30) {
         this.idDate = idDate;
         this.localDate = localDate;
         this.time8_30 = time8_30;
@@ -84,12 +84,12 @@ public class CalendarTicket implements Serializable {
         this.time16_30 = time16_30;
     }
 
-    public CalendarTicket(long idDate, LocalDate localDate, int time8_30,
-                          int time9_00, int time9_30, int time10_00,
-                          int time10_30, int time11_00, int time11_30,
-                          int time13_00, int time13_30, int time14_00,
-                          int time14_30, int time15_00, int time15_30,
-                          int time16_00, int time16_30, DoctorForm doctor) {
+    public Calendar(long idDate, LocalDate localDate, int time8_30,
+                    int time9_00, int time9_30, int time10_00,
+                    int time10_30, int time11_00, int time11_30,
+                    int time13_00, int time13_30, int time14_00,
+                    int time14_30, int time15_00, int time15_30,
+                    int time16_00, int time16_30, DoctorForm doctor) {
         this.idDate = idDate;
         this.localDate = localDate;
         this.time8_30 = time8_30;

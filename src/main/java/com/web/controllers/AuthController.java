@@ -1,8 +1,8 @@
 package com.web.controllers;
 
-import com.web.facades.CalendarTicketFacade;
+import com.web.facades.CalendarFacade;
 import com.web.facades.UserFacade;
-import com.web.forms.CalendarTicketForm;
+import com.web.forms.CalendarForm;
 import com.web.forms.PositionDoctorForm;
 import com.web.forms.UserForm;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,7 +25,7 @@ public class AuthController {
     private UserFacade userFacade;
 
     @Autowired
-    private CalendarTicketFacade calendarTicketFacade;
+    private CalendarFacade calendarFacade;
 
 
     @GetMapping("/")
@@ -52,7 +52,7 @@ public class AuthController {
                                        @SessionAttribute(value = "positions", required = false)
                                        List<PositionDoctorForm> positions,
                                        @SessionAttribute(value = "calendars", required = false)
-                                       List<CalendarTicketForm> calendars) {
+                                       List<CalendarForm> calendars) {
         ModelAndView modelAndView = new ModelAndView("welcome");
         modelAndView.addObject("userForm", userSession);
 
@@ -72,15 +72,15 @@ public class AuthController {
                 pageMinus = -1;
             }
             if (userSession.getDoctor() != null) {
-                List<CalendarTicketForm> byDoctor_idDoctor =
-                        calendarTicketFacade.findByDoctor_IdDoctor(userSession.getDoctor().getIdDoctor(), pageNo, pageSize);
-                if (byDoctor_idDoctor.size() != 0) {
+                List<CalendarForm> calendarForms =
+                        calendarFacade.findByDoctor_IdDoctor(userSession.getDoctor().getIdDoctor(), pageNo, pageSize);
+                if (calendarForms.size() != 0) {
                     LocalDate currentDate = LocalDate.now();
-                    List<CalendarTicketForm> collect = byDoctor_idDoctor.
+                    List<CalendarForm> calendarDoctors = calendarForms.
                             stream().filter(calendar -> currentDate.isBefore(calendar.getLocalDate()) ||
                                     currentDate.isEqual(calendar.getLocalDate()))
-                            .sorted(Comparator.comparing(CalendarTicketForm::getLocalDate)).collect(Collectors.toList());
-                    modelAndView.addObject("calendarDoctors", collect);
+                            .sorted(Comparator.comparing(CalendarForm::getLocalDate)).collect(Collectors.toList());
+                    modelAndView.addObject("calendarDoctors", calendarDoctors);
                     modelAndView.addObject("idDoctor", userSession.getDoctor().getIdDoctor());
                     modelAndView.addObject("pageNo", pageNo);
                     modelAndView.addObject("pageMinus", pageMinus);
@@ -90,15 +90,10 @@ public class AuthController {
         return modelAndView;
     }
 
-    @GetMapping("/addUser")
-    public String registration() {
-        return "addUser";
-    }
-
-    private void findFieldNameTime(UserForm userSession, List<CalendarTicketForm> calendars) {
+    private void findFieldNameTime(UserForm userSession, List<CalendarForm> calendars) {
         int idPassport = (int) userSession.getPassport().getIdPassport();
-        for (CalendarTicketForm calendar : calendars) {
-            Class<? extends CalendarTicketForm> aClass = calendar.getClass();
+        for (CalendarForm calendar : calendars) {
+            Class<? extends CalendarForm> aClass = calendar.getClass();
             Field[] declaredFields = aClass.getDeclaredFields();
             for (Field declaredField : declaredFields) {
                 declaredField.setAccessible(true);

@@ -6,12 +6,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PassportForm {
+public class PassportForm implements Serializable {
 
     private long idPassport;
     private String family;

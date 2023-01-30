@@ -1,5 +1,6 @@
 package com.web;
 
+import com.web.authentication.MyDBAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +11,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import com.web.authentication.MyDBAuthenticationService;
 
 @Configuration
 @EnableWebSecurity
@@ -33,20 +33,19 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .securityMatcher("/", "/login", "/addUser",
-                        "/welcome/**", "/users", "/upDateUser", "/addPositionDoctor/**"
-                ,"/addDoctor","/doctors/**","/displayAllUsers","/confirmTimeUser","/doctorByPosition",
-                        "/calendarTicket/**")
+                        "/welcome/**", "/addPositionDoctor/**"
+                        /*,"/addDoctor"*/, "/allUsers",
+                        "/calendarForUser/**", "/confirmTime", "/doctorByPosition","/time","/userOrDoctor",
+                        "/medicalHistory"/*,"/addMedicalHistory/**"*/)
                 .authorizeHttpRequests(authorize ->
                         authorize
                                 .requestMatchers("/", "/login", "/addUser").permitAll()
-                                .requestMatchers("/welcome/**").hasAnyRole("ADMIN", "USER","DOCTOR")
-                                .requestMatchers("/users/**","/doctors/**","/addPositionDoctor","/addDoctor").hasRole("ADMIN")
-                                .requestMatchers("/displayAllUsers").hasRole("DOCTOR")
-                                .requestMatchers("/doctorByPosition/**").hasRole("USER")
-                                .requestMatchers("/calendarTicket/**").hasRole("USER")
-                                .requestMatchers("/confirmTimeUser").hasRole("USER")
-                                .requestMatchers("/addPost/**").hasRole("USER")
-                                .requestMatchers("/updatePost/**").hasRole("USER")
+                                .requestMatchers("/welcome/**").hasAnyRole("ADMIN", "USER", "DOCTOR")
+                                .requestMatchers("/userOrDoctor", "/addPositionDoctor", "/addDoctor")
+                                .hasRole("ADMIN")
+                                .requestMatchers("/allUsers","/medicalHistory","/addMedicalHistory/**").hasRole("DOCTOR")
+                                .requestMatchers("/doctorByPosition/**","/calendarForUser/**","/confirmTime")
+                                .hasRole("USER")
                                 .anyRequest().authenticated())
                 .formLogin()
                 .usernameParameter("userName")

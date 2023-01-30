@@ -28,7 +28,7 @@
                 <ul class="nav navbar-nav">
                     <button class="custom-btn btn-6">
                         <span>
-                        <a href="${pageContext.request.contextPath}/home">Главная</a>
+                        <a href="${pageContext.request.contextPath}/">Главная</a>
                     </span>
                     </button>
                     <button class="custom-btn btn-6">

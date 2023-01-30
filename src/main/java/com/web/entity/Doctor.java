@@ -4,13 +4,14 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Set;
 
 @Data()
 @NoArgsConstructor
 @Entity
 @Table(name = "doctor")
-public class Doctor {
+public class Doctor implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_doctor")
@@ -26,7 +27,7 @@ public class Doctor {
     private User user;
 
     @OneToMany(mappedBy = "doctor")
-    private Set<CalendarTicket> calendarTickets;
+    private Set<Calendar> calendars;
 
     public Doctor(long idDoctor, int cabinetNumber, String specialityDoctor) {
         this.idDoctor = idDoctor;

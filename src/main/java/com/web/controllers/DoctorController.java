@@ -1,9 +1,9 @@
 package com.web.controllers;
 
-import com.web.facades.CalendarTicketFacade;
+import com.web.facades.CalendarFacade;
 import com.web.facades.PassportFacade;
-import com.web.facades.PositionDoctorFacade;
-import com.web.forms.CalendarTicketForm;
+import com.web.forms.CalendarForm;
+import com.web.forms.MedicalHistoryForm;
 import com.web.forms.UserForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,21 +12,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Set;
+
 
 @Controller
 public class DoctorController {
 
     @Autowired
-    private CalendarTicketFacade calendarTicketFacade;
+    private CalendarFacade calendarFacade;
 
     @Autowired
     private PassportFacade passportFacade;
 
-    @GetMapping("/displayAllUsers")
+    @GetMapping("/allUsers")
     public ModelAndView displayCalendarForDoctor(@RequestParam long idDate,
                                                  @SessionAttribute UserForm userSession){
-        ModelAndView modelAndView = new ModelAndView("displayAllUsers");
-        CalendarTicketForm timeUser = calendarTicketFacade.findId(idDate);
+        ModelAndView modelAndView = new ModelAndView("allUsers");
+        CalendarForm timeUser = calendarFacade.findId(idDate);
         modelAndView.addObject("currentDate",timeUser.getLocalDate());
         if(timeUser.getTime8_30()!=0){
             modelAndView.addObject("time8_30",passportFacade.get(timeUser.getTime8_30()));
@@ -73,6 +75,26 @@ public class DoctorController {
         if (timeUser.getTime16_30()!=0){
             modelAndView.addObject("time16_30",passportFacade.get(timeUser.getTime16_30()));
         }
+        modelAndView.addObject("userForm",userSession);
+        return modelAndView;
+    }
+
+    @GetMapping("/medicalHistory")
+    public ModelAndView displayHistory(@RequestParam long idPassport,
+                                       @SessionAttribute UserForm userSession){
+        ModelAndView modelAndView = new ModelAndView("medicalHistory");
+        Set<MedicalHistoryForm> listHistory = passportFacade.getListHistory(idPassport);
+        modelAndView.addObject("idPassport",idPassport);
+        modelAndView.addObject("medicalHistory",listHistory);
+        modelAndView.addObject("userForm",userSession);
+        return modelAndView;
+    }
+
+    @GetMapping("/addMedicalHistory")
+     public ModelAndView addMedicalHistory(@RequestParam long idPassport,
+                                           @SessionAttribute UserForm userSession){
+        ModelAndView modelAndView = new ModelAndView("addMedicalHistory");
+        modelAndView.addObject("idPassport",idPassport);
         modelAndView.addObject("userForm",userSession);
         return modelAndView;
     }

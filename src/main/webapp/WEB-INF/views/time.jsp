@@ -76,7 +76,7 @@
                     <button class="custom-btn btn-6">
                         <span>
                         <a href="${pageContext.request.contextPath}
-                        /confirmTimeUser?idDate=${calendarTime.idDate}&ticketTime=time8_30 ">8-30</a>
+                        /confirmTime?idDate=${calendarTime.idDate}&time=time8_30 ">8-30</a>
                     </span>
                     </button>
                 </c:if>
@@ -84,7 +84,7 @@
                     <button class="custom-btn btn-6">
                         <span>
                        <a href="${pageContext.request.contextPath}
-                       /confirmTimeUser?idDate=${calendarTime.idDate}&ticketTime=time9_00 ">9-00</a>
+                       /confirmTime?idDate=${calendarTime.idDate}&time=time9_00 ">9-00</a>
                     </span>
                     </button>
                 </c:if>
@@ -92,7 +92,7 @@
                     <button class="custom-btn btn-6">
                         <span>
                        <a href="${pageContext.request.contextPath}
-                       /confirmTimeUser?idDate=${calendarTime.idDate}&ticketTime=time9_30 ">9-30</a>
+                       /confirmTime?idDate=${calendarTime.idDate}&time=time9_30 ">9-30</a>
                     </span>
                     </button>
                 </c:if>
@@ -100,7 +100,7 @@
                     <button class="custom-btn btn-6">
                         <span>
                       <a href="${pageContext.request.contextPath}
-                      /confirmTimeUser?idDate=${calendarTime.idDate}&ticketTime=time10_00 ">10-00</a>
+                      /confirmTime?idDate=${calendarTime.idDate}&time=time10_00 ">10-00</a>
                     </span>
                     </button>
                 </c:if>
@@ -108,7 +108,7 @@
                     <button class="custom-btn btn-6">
                         <span>
                        <a href="${pageContext.request.contextPath}
-                       /confirmTimeUser?idDate=${calendarTime.idDate}&ticketTime=time10_30 ">10-30</a>
+                       /confirmTime?idDate=${calendarTime.idDate}&time=time10_30 ">10-30</a>
                     </span>
                     </button>
                 </c:if>
@@ -116,7 +116,7 @@
                     <button class="custom-btn btn-6">
                         <span>
                         <a href="${pageContext.request.contextPath}
-                        /confirmTimeUser?idDate=${calendarTime.idDate}&ticketTime=time11_00 ">11-00</a>
+                        /confirmTime?idDate=${calendarTime.idDate}&time=time11_00 ">11-00</a>
                     </span>
                     </button>
                 </c:if>
@@ -124,7 +124,7 @@
                     <button class="custom-btn btn-6">
                         <span>
                          <a href="${pageContext.request.contextPath}
-                         /confirmTimeUser?idDate=${calendarTime.idDate}&ticketTime=time11_30 ">11-30</a>
+                         /confirmTime?idDate=${calendarTime.idDate}&time=time11_30 ">11-30</a>
                     </span>
                     </button>
                 </c:if>
@@ -132,7 +132,7 @@
                     <button class="custom-btn btn-6">
                         <span>
                          <a href="${pageContext.request.contextPath}
-                         /confirmTimeUser?idDate=${calendarTime.idDate}&ticketTime=time13_00 ">13-00</a>
+                         /confirmTime?idDate=${calendarTime.idDate}&time=time13_00 ">13-00</a>
                     </span>
                     </button>
                 </c:if>
@@ -140,7 +140,7 @@
                     <button class="custom-btn btn-6">
                         <span>
                           <a href="${pageContext.request.contextPath}
-                          /confirmTimeUser?idDate=${calendarTime.idDate}&ticketTime=time13_30 ">13-30</a>
+                          /confirmTime?idDate=${calendarTime.idDate}&time=time13_30 ">13-30</a>
                     </span>
                     </button>
                 </c:if>
@@ -148,7 +148,7 @@
                     <button class="custom-btn btn-6">
                         <span>
                           <a href="${pageContext.request.contextPath}
-                          /confirmTimeUser?idDate=${calendarTime.idDate}&ticketTime=time14_00 ">14-00</a>
+                          /confirmTime?idDate=${calendarTime.idDate}&time=time14_00 ">14-00</a>
                     </span>
                     </button>
                 </c:if>
@@ -156,7 +156,7 @@
                     <button class="custom-btn btn-6">
                         <span>
                          <a href="${pageContext.request.contextPath}
-                         /confirmTimeUser?idDate=${calendarTime.idDate}&ticketTime=time14_30 ">14-30</a>
+                         /confirmTime?idDate=${calendarTime.idDate}&time=time14_30 ">14-30</a>
                     </span>
                     </button>
                 </c:if>
@@ -164,7 +164,7 @@
                     <button class="custom-btn btn-6">
                         <span>
                      <a href="${pageContext.request.contextPath}
-                     /confirmTimeUser?idDate=${calendarTime.idDate}&ticketTime=time15_00 ">15-00</a>
+                     /confirmTime?idDate=${calendarTime.idDate}&time=time15_00 ">15-00</a>
                     </span>
                     </button>
                 </c:if>
@@ -172,7 +172,7 @@
                     <button class="custom-btn btn-6">
                         <span>
                      <a href="${pageContext.request.contextPath}
-                     /confirmTimeUser?idDate=${calendarTime.idDate}&ticketTime=time15_30 ">15-30</a>
+                     /confirmTime?idDate=${calendarTime.idDate}&time=time15_30 ">15-30</a>
                     </span>
                     </button>
                 </c:if>
@@ -180,7 +180,7 @@
                     <button class="custom-btn btn-6">
                         <span>
                    <a href="${pageContext.request.contextPath}
-                   /confirmTimeUser?idDate=${calendarTime.idDate}&ticketTime=time16_00 ">16-00</a>
+                   /confirmTime?idDate=${calendarTime.idDate}&time=time16_00 ">16-00</a>
                     </span>
                     </button>
                 </c:if>
@@ -188,7 +188,7 @@
                     <button class="custom-btn btn-6">
                         <span>
                   <a href="${pageContext.request.contextPath}
-                  /confirmTimeUser?idDate=${calendarTime.idDate}&ticketTime=time16_30 ">16-30</a>
+                  /confirmTime?idDate=${calendarTime.idDate}&time=time16_30 ">16-30</a>
                     </span>
                     </button>
                 </c:if>

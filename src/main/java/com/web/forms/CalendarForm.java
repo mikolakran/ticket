@@ -1,8 +1,7 @@
 package com.web.forms;
 
-import com.web.entity.CalendarTicket;
+import com.web.entity.Calendar;
 import com.web.entity.Doctor;
-import com.web.entity.Passport;
 import com.web.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +14,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CalendarTicketForm implements Serializable {
+public class CalendarForm implements Serializable {
     private long idDate;
     private LocalDate localDate;
     private int time8_30;
@@ -37,25 +36,25 @@ public class CalendarTicketForm implements Serializable {
     private String nameTime;
     private DoctorForm doctor;
     private Set<PassportForm> passports;
-    public CalendarTicketForm(CalendarTicket calendarTicket) {
-        this.idDate = calendarTicket.getIdDate();
-        this.localDate = calendarTicket.getLocalDate();
-        this.time8_30 = calendarTicket.getTime8_30();
-        this.time9_00 = calendarTicket.getTime9_00();
-        this.time9_30 = calendarTicket.getTime9_30();
-        this.time10_00 = calendarTicket.getTime10_00();
-        this.time10_30 = calendarTicket.getTime10_30();
-        this.time11_00 = calendarTicket.getTime11_00();
-        this.time11_30 = calendarTicket.getTime11_30();
-        this.time13_00 = calendarTicket.getTime13_00();
-        this.time13_30 = calendarTicket.getTime13_30();
-        this.time14_00 = calendarTicket.getTime14_00();
-        this.time14_30 = calendarTicket.getTime14_30();
-        this.time15_00 = calendarTicket.getTime15_00();
-        this.time15_30 = calendarTicket.getTime15_30();
-        this.time16_00 = calendarTicket.getTime16_00();
-        this.time16_30 = calendarTicket.getTime16_30();
-        Doctor doctor = calendarTicket.getDoctor();
+    public CalendarForm(Calendar calendar) {
+        this.idDate = calendar.getIdDate();
+        this.localDate = calendar.getLocalDate();
+        this.time8_30 = calendar.getTime8_30();
+        this.time9_00 = calendar.getTime9_00();
+        this.time9_30 = calendar.getTime9_30();
+        this.time10_00 = calendar.getTime10_00();
+        this.time10_30 = calendar.getTime10_30();
+        this.time11_00 = calendar.getTime11_00();
+        this.time11_30 = calendar.getTime11_30();
+        this.time13_00 = calendar.getTime13_00();
+        this.time13_30 = calendar.getTime13_30();
+        this.time14_00 = calendar.getTime14_00();
+        this.time14_30 = calendar.getTime14_30();
+        this.time15_00 = calendar.getTime15_00();
+        this.time15_30 = calendar.getTime15_30();
+        this.time16_00 = calendar.getTime16_00();
+        this.time16_30 = calendar.getTime16_30();
+        Doctor doctor = calendar.getDoctor();
         User user = doctor.getUser();
         this.doctor = new DoctorForm(doctor.getIdDoctor(),doctor.getCabinetNumber(),
                 doctor.getSpecialityDoctor(),user);

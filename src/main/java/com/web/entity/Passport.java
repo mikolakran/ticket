@@ -35,8 +35,11 @@ public class Passport implements Serializable {
     @OneToOne(mappedBy = "passport")
     private User user;
 
+    @OneToMany(mappedBy = "passport")
+    private Set<MedicalHistory> medicalHistory;
+
     @ManyToMany(mappedBy = "passports")
-    private Set<CalendarTicket> calendarTicket;
+    private Set<Calendar> calendar;
 
     public Passport(String family, String name, String patronymic, LocalDate dateBirth, String address) {
         this.family = family;

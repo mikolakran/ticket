@@ -1,10 +1,10 @@
 package com.web.controllers;
 
 import com.web.exception.MyException;
-import com.web.facades.CalendarTicketFacade;
+import com.web.facades.CalendarFacade;
 import com.web.facades.DoctorFacade;
 import com.web.facades.PassportFacade;
-import com.web.forms.CalendarTicketForm;
+import com.web.forms.CalendarForm;
 import com.web.forms.DoctorForm;
 import com.web.forms.PassportForm;
 import com.web.forms.UserForm;
@@ -25,16 +25,21 @@ import java.util.List;
 import java.util.Set;
 
 @Controller
-public class CalendarUserController {
+public class UserController {
 
     @Autowired
-    private CalendarTicketFacade calendarTicketFacade;
+    private CalendarFacade calendarFacade;
 
     @Autowired
     private DoctorFacade doctorFacade;
 
     @Autowired
     private PassportFacade passportFacade;
+
+    @GetMapping("/addUser")
+    public String registration() {
+        return "addUser";
+    }
 
     @GetMapping("/doctorByPosition")
     public ModelAndView displayDoctorsByPosition(
@@ -49,32 +54,32 @@ public class CalendarUserController {
         return modelAndView;
     }
 
-    @GetMapping("/calendarTicket/{pageNo}")
+    @GetMapping("/calendarForUser/{pageNo}")
     public ModelAndView displayCalendar(@PathVariable int pageNo,
                                         @RequestParam Long idDoctor,
                                         @SessionAttribute UserForm userSession) {
         int pageSize = 15;
         int pageMinus = 0;
-        ModelAndView modelAndView = new ModelAndView("calendarTicket");
+        ModelAndView modelAndView = new ModelAndView("calendarForUser");
         modelAndView.addObject("userForm", userSession);
         DoctorForm doctor = doctorFacade.get(idDoctor);
         modelAndView.addObject("doctor", doctor);
-        Set<CalendarTicketForm> listCalendarUser = passportFacade.
+        Set<CalendarForm> calendarUser = passportFacade.
                 getListCalendarUser(userSession.getPassport().getIdPassport());
         LocalDate currentDate = LocalDate.now();
         if (pageNo == -1) {
             pageNo = 0;
             pageMinus = - 1;
         }
-            List<CalendarTicketForm> byIdDoctors =
-                    calendarTicketFacade.findByDoctor_IdDoctor(idDoctor, pageNo, pageSize);
+            List<CalendarForm> calendarDoctor =
+                    calendarFacade.findByDoctor_IdDoctor(idDoctor, pageNo, pageSize);
 
-            listCalendarUser.forEach(calendar -> byIdDoctors.removeIf(calendar::equals));
+            calendarUser.forEach(calendar -> calendarDoctor.removeIf(calendar::equals));
 
-            List<CalendarTicketForm> collect = byIdDoctors.stream().filter(calendar ->
+            List<CalendarForm> collect = calendarDoctor.stream().filter(calendar ->
                             currentDate.isBefore(calendar.getLocalDate()) ||
                                     currentDate.isEqual(calendar.getLocalDate()))
-                    .sorted(Comparator.comparing(CalendarTicketForm::getLocalDate)).toList();
+                    .sorted(Comparator.comparing(CalendarForm::getLocalDate)).toList();
 
             modelAndView.addObject("calendarDoctors", collect);
             modelAndView.addObject("idDoctor", idDoctor);
@@ -83,23 +88,23 @@ public class CalendarUserController {
             return modelAndView;
         }
 
-        @GetMapping("/ticketTimes")
+        @GetMapping("/time")
         public ModelAndView displayTicketTime ( @RequestParam long idDate,
         @SessionAttribute UserForm userSession){
-            ModelAndView modelAndView = new ModelAndView("ticketTimes");
+            ModelAndView modelAndView = new ModelAndView("time");
             modelAndView.addObject("userForm", userSession);
-            CalendarTicketForm ticketForm = calendarTicketFacade.findId(idDate);
-            modelAndView.addObject("calendarTime", ticketForm);
+            CalendarForm calendarTime = calendarFacade.findId(idDate);
+            modelAndView.addObject("calendarTime", calendarTime);
             return modelAndView;
         }
 
-        @GetMapping("/confirmTimeUser")
+        @GetMapping("/confirmTime")
         public ModelAndView displaySave ( @RequestParam long idDate,
-        @RequestParam String ticketTime,
+        @RequestParam String time,
         @SessionAttribute UserForm userSession){
-            ModelAndView modelAndView = new ModelAndView("confirmTimeUser");
+            ModelAndView modelAndView = new ModelAndView("confirmTime");
             userSession.setIdDate(idDate);
-            userSession.setTicketTime(ticketTime);
+            userSession.setTicketTime(time);
             modelAndView.addObject("userForm", userSession);
             return modelAndView;
         }
@@ -112,57 +117,57 @@ public class CalendarUserController {
         HttpServletResponse response) throws IOException {
             ModelAndView modelAndView = new ModelAndView("welcome");
             PassportForm passportForm = passportFacade.get(userSession.getPassport().getIdPassport());
-            CalendarTicketForm calendarTicketForm = calendarTicketFacade.findId(idDate);
-            Set<PassportForm> listPassport = calendarTicketFacade.getListPassport(idDate);
+            CalendarForm calendarForm = calendarFacade.findId(idDate);
+            Set<PassportForm> listPassport = calendarFacade.getListPassport(idDate);
             listPassport.add(passportForm);
             if (ticketTime.equals("time8_30")) {
-                calendarTicketForm.setTime8_30((int) passportForm.getIdPassport());
+                calendarForm.setTime8_30((int) passportForm.getIdPassport());
             }
             if (ticketTime.equals("time9_00")) {
-                calendarTicketForm.setTime9_00((int) passportForm.getIdPassport());
+                calendarForm.setTime9_00((int) passportForm.getIdPassport());
             }
             if (ticketTime.equals("time9_30")) {
-                calendarTicketForm.setTime9_30((int) passportForm.getIdPassport());
+                calendarForm.setTime9_30((int) passportForm.getIdPassport());
             }
             if (ticketTime.equals("time10_00")) {
-                calendarTicketForm.setTime10_00((int) passportForm.getIdPassport());
+                calendarForm.setTime10_00((int) passportForm.getIdPassport());
             }
             if (ticketTime.equals("time10_30")) {
-                calendarTicketForm.setTime10_30((int) passportForm.getIdPassport());
+                calendarForm.setTime10_30((int) passportForm.getIdPassport());
             }
             if (ticketTime.equals("time11_00")) {
-                calendarTicketForm.setTime11_00((int) passportForm.getIdPassport());
+                calendarForm.setTime11_00((int) passportForm.getIdPassport());
             }
             if (ticketTime.equals("time11_30")) {
-                calendarTicketForm.setTime11_30((int) passportForm.getIdPassport());
+                calendarForm.setTime11_30((int) passportForm.getIdPassport());
             }
             if (ticketTime.equals("time13_00")) {
-                calendarTicketForm.setTime13_00((int) passportForm.getIdPassport());
+                calendarForm.setTime13_00((int) passportForm.getIdPassport());
             }
             if (ticketTime.equals("time13_30")) {
-                calendarTicketForm.setTime13_30((int) passportForm.getIdPassport());
+                calendarForm.setTime13_30((int) passportForm.getIdPassport());
             }
             if (ticketTime.equals("time14_00")) {
-                calendarTicketForm.setTime14_00((int) passportForm.getIdPassport());
+                calendarForm.setTime14_00((int) passportForm.getIdPassport());
             }
             if (ticketTime.equals("time14_30")) {
-                calendarTicketForm.setTime14_30((int) passportForm.getIdPassport());
+                calendarForm.setTime14_30((int) passportForm.getIdPassport());
             }
             if (ticketTime.equals("time15_00")) {
-                calendarTicketForm.setTime15_00((int) passportForm.getIdPassport());
+                calendarForm.setTime15_00((int) passportForm.getIdPassport());
             }
             if (ticketTime.equals("time15_30")) {
-                calendarTicketForm.setTime15_30((int) passportForm.getIdPassport());
+                calendarForm.setTime15_30((int) passportForm.getIdPassport());
             }
             if (ticketTime.equals("time16_00")) {
-                calendarTicketForm.setTime16_00((int) passportForm.getIdPassport());
+                calendarForm.setTime16_00((int) passportForm.getIdPassport());
             }
             if (ticketTime.equals("time16_30")) {
-                calendarTicketForm.setTime16_30((int) passportForm.getIdPassport());
+                calendarForm.setTime16_30((int) passportForm.getIdPassport());
             }
-            calendarTicketForm.setPassports(listPassport);
+            calendarForm.setPassports(listPassport);
             try {
-                calendarTicketFacade.save(calendarTicketForm);
+                calendarFacade.save(calendarForm);
             } catch (MyException e) {
                 throw new RuntimeException(e);
             }

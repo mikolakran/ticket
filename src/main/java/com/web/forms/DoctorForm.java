@@ -1,7 +1,6 @@
 package com.web.forms;
 
 import com.web.entity.Doctor;
-import com.web.entity.Passport;
 import com.web.entity.PositionDoctor;
 import com.web.entity.User;
 import lombok.AllArgsConstructor;
@@ -20,7 +19,7 @@ public class DoctorForm implements Serializable {
     private String specialityDoctor;
     private Set<PositionDoctor> positionDoctors;
     private User user;
-    private Set<CalendarTicketForm> calendarTickets;
+    private Set<CalendarForm> calendarTickets;
 
     public DoctorForm(Doctor doctor) {
         this.idDoctor = doctor.getIdDoctor();
