@@ -88,7 +88,11 @@
                         <a href="${pageContext.request.contextPath}/doctors">Your doctors</a>
                     </span>
                 </button>
-                //add position
+                <button class="custom-btn btn-6">
+                        <span>
+                        <a href="${pageContext.request.contextPath}/positions">Your position Doctor</a>
+                    </span>
+                </button>
             </security:authorize>
             <security:authorize access="hasRole('ROLE_USER')">
                 <c:if test="${calendars.size()!=0}">

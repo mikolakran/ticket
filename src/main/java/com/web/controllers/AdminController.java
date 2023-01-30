@@ -2,6 +2,7 @@ package com.web.controllers;
 
 import com.web.facades.PositionDoctorFacade;
 import com.web.facades.UserFacade;
+import com.web.forms.PositionDoctorForm;
 import com.web.forms.UserForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +34,14 @@ public class AdminController {
         ModelAndView modelAndView = new ModelAndView("usersOrDoctors");
         List<UserForm> doctors = userFacade.getListDoctors();
         modelAndView.addObject("doctors",doctors);
+        return modelAndView;
+    }
+
+    @GetMapping("/positions")
+    public ModelAndView displayPosition(){
+        ModelAndView modelAndView = new ModelAndView("usersOrDoctors");
+        List<PositionDoctorForm> all = positionDoctorFacade.findAll();
+        modelAndView.addObject("positions",all);
         return modelAndView;
     }
 

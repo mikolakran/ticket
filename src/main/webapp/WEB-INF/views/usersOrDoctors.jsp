@@ -120,6 +120,24 @@
                     </tr>
                 </c:forEach>
             </c:if>
+            <c:if test="${positions!=null}">
+                <tr>
+                    <th>Position Doctor</th>
+                    <th>Beginning Work</th>
+                    <th>end Work</th>
+                    <th>Beginning Break</th>
+                    <th>End Break</th>
+                </tr>
+                <c:forEach var="position" items="${positions}">
+                    <tr>
+                        <td>${position.position}</td>
+                        <td>${position.beginningWork}</td>
+                        <td>${position.endWork}</td>
+                        <td>${position.beginningBreak}</td>
+                        <td>${position.endBreak}</td>
+                    </tr>
+                </c:forEach>
+            </c:if>
         </table>
     </div>
 </div>
