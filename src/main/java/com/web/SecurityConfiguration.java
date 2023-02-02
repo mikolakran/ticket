@@ -33,18 +33,20 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .securityMatcher("/", "/login", "/addUser",
-                        "/welcome/**", "/addPositionDoctor/**"
-                        /*,"/addDoctor"*/, "/allUsers",
-                        "/calendarForUser/**", "/confirmTime", "/doctorByPosition","/time","/userOrDoctor",
-                        "/medicalHistory"/*,"/addMedicalHistory/**"*/)
+                        "/welcome/**",
+                        "users/**","passports/**","/doctors/**","/calendars/**","/positionDoctors/**",
+                        "/medicalHistory/**","/allUsers","/addMedicalHistory/**",
+                        "/calendarForUser/**","/confirmTime","/doctorByPosition","/time")
                 .authorizeHttpRequests(authorize ->
                         authorize
                                 .requestMatchers("/", "/login", "/addUser").permitAll()
                                 .requestMatchers("/welcome/**").hasAnyRole("ADMIN", "USER", "DOCTOR")
-                                .requestMatchers("/userOrDoctor", "/addPositionDoctor", "/addDoctor")
-                                .hasRole("ADMIN")
-                                .requestMatchers("/allUsers","/medicalHistory","/addMedicalHistory/**").hasRole("DOCTOR")
-                                .requestMatchers("/doctorByPosition/**","/calendarForUser/**","/confirmTime")
+                                .requestMatchers( "users/**","passports/**","/doctors/**","/calendars/**",
+                                        "/positionDoctors/**","/addPositionDoctor", "/addDoctor").hasRole("ADMIN")
+                                .requestMatchers("/medicalHistory","/allUsers","/addMedicalHistory/**")
+                                .hasRole("DOCTOR")
+                                .requestMatchers("/calendarForUser/**","/confirmTime",
+                                        "/doctorByPosition/**","/time")
                                 .hasRole("USER")
                                 .anyRequest().authenticated())
                 .formLogin()

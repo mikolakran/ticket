@@ -34,19 +34,19 @@ public class UserFacade {
         UserForm userForm = new UserForm();
         userForm.setUserName(name);
         buildUser(user, userForm);
-        User resultByName = userDAO.getByName(user.getUserName());
+        User resultByName = userDAO.findByName(user.getUserName());
         return new UserForm(resultByName);
     }
 
     public List<UserForm> getListUsers() {
         List<UserForm> userFormList = new ArrayList<>();
-        userDAO.getListUsers().forEach(user1 -> userFormList.add(new UserForm(user1)));
+        userDAO.findListUsers().forEach(user1 -> userFormList.add(new UserForm(user1)));
         return userFormList;
     }
 
     public List<UserForm> getListDoctors() {
         List<UserForm> userFormList = new ArrayList<>();
-        userDAO.getListDoctors().forEach(user1 -> userFormList.add(new UserForm(user1)));
+        userDAO.findListDoctors().forEach(user1 -> userFormList.add(new UserForm(user1)));
         return userFormList;
     }
 

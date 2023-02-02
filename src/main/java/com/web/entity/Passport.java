@@ -1,15 +1,11 @@
 package com.web.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Set;
 
-@Data()
-@NoArgsConstructor
 @Entity
 @Table(name = "passport")
 public class Passport implements Serializable {
@@ -59,6 +55,98 @@ public class Passport implements Serializable {
         this.gender = gender;
         this.dateBirth = dateBirth;
         this.address = address;
+    }
+
+    public Passport() {
+
+    }
+
+    public long getIdPassport() {
+        return idPassport;
+    }
+
+    public void setIdPassport(long idPassport) {
+        this.idPassport = idPassport;
+    }
+
+    public String getFamily() {
+        return family;
+    }
+
+    public void setFamily(String family) {
+        this.family = family;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPatronymic() {
+        return patronymic;
+    }
+
+    public void setPatronymic(String patronymic) {
+        this.patronymic = patronymic;
+    }
+
+    public String getContactNumber() {
+        return contactNumber;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
+
+    public LocalDate getDateBirth() {
+        return dateBirth;
+    }
+
+    public void setDateBirth(LocalDate dateBirth) {
+        this.dateBirth = dateBirth;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Set<MedicalHistory> getMedicalHistory() {
+        return medicalHistory;
+    }
+
+    public void setMedicalHistory(Set<MedicalHistory> medicalHistory) {
+        this.medicalHistory = medicalHistory;
+    }
+
+    public Set<Calendar> getCalendar() {
+        return calendar;
+    }
+
+    public void setCalendar(Set<Calendar> calendar) {
+        this.calendar = calendar;
     }
 
     @Override

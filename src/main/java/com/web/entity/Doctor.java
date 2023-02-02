@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.util.Set;
 
-@Data()
-@NoArgsConstructor
 @Entity
 @Table(name = "doctor")
 public class Doctor implements Serializable {
@@ -33,6 +31,58 @@ public class Doctor implements Serializable {
         this.idDoctor = idDoctor;
         this.cabinetNumber = cabinetNumber;
         this.specialityDoctor = specialityDoctor;
+    }
+
+    public Doctor() {
+
+    }
+
+    public long getIdDoctor() {
+        return idDoctor;
+    }
+
+    public void setIdDoctor(long idDoctor) {
+        this.idDoctor = idDoctor;
+    }
+
+    public int getCabinetNumber() {
+        return cabinetNumber;
+    }
+
+    public void setCabinetNumber(int cabinetNumber) {
+        this.cabinetNumber = cabinetNumber;
+    }
+
+    public String getSpecialityDoctor() {
+        return specialityDoctor;
+    }
+
+    public void setSpecialityDoctor(String specialityDoctor) {
+        this.specialityDoctor = specialityDoctor;
+    }
+
+    public Set<PositionDoctor> getPositionDoctors() {
+        return positionDoctors;
+    }
+
+    public void setPositionDoctors(Set<PositionDoctor> positionDoctors) {
+        this.positionDoctors = positionDoctors;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Set<Calendar> getCalendars() {
+        return calendars;
+    }
+
+    public void setCalendars(Set<Calendar> calendars) {
+        this.calendars = calendars;
     }
 
     @Override
