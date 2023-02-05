@@ -31,11 +31,12 @@ public class Passport implements Serializable {
     @OneToOne(mappedBy = "passport")
     private User user;
 
+    @OneToOne(mappedBy = "passport")
+    private TimerTime timerTime;
+
     @OneToMany(mappedBy = "passport")
     private Set<MedicalHistory> medicalHistory;
 
-    @ManyToMany(mappedBy = "passports")
-    private Set<Calendar> calendar;
 
     public Passport(String family, String name, String patronymic, LocalDate dateBirth, String address) {
         this.family = family;
@@ -141,12 +142,12 @@ public class Passport implements Serializable {
         this.medicalHistory = medicalHistory;
     }
 
-    public Set<Calendar> getCalendar() {
-        return calendar;
+    public TimerTime getTimerTime() {
+        return timerTime;
     }
 
-    public void setCalendar(Set<Calendar> calendar) {
-        this.calendar = calendar;
+    public void setTimerTime(TimerTime timerTime) {
+        this.timerTime = timerTime;
     }
 
     @Override

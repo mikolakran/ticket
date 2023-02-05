@@ -109,7 +109,7 @@ public class UserController {
             return modelAndView;
         }
 
-        @GetMapping("/addUserTimeTicket")
+       /* @GetMapping("/addUserTimeTicket")
         public ModelAndView saveUserTimeTicket ( @RequestParam long idDate,
         @RequestParam String ticketTime,
         @SessionAttribute UserForm userSession,
@@ -120,59 +120,9 @@ public class UserController {
             CalendarForm calendarForm = calendarFacade.findId(idDate);
             Set<PassportForm> listPassport = calendarFacade.getListPassport(idDate);
             listPassport.add(passportForm);
-            if (ticketTime.equals("time8_30")) {
-                calendarForm.setTime8_30((int) passportForm.getIdPassport());
-            }
-            if (ticketTime.equals("time9_00")) {
-                calendarForm.setTime9_00((int) passportForm.getIdPassport());
-            }
-            if (ticketTime.equals("time9_30")) {
-                calendarForm.setTime9_30((int) passportForm.getIdPassport());
-            }
-            if (ticketTime.equals("time10_00")) {
-                calendarForm.setTime10_00((int) passportForm.getIdPassport());
-            }
-            if (ticketTime.equals("time10_30")) {
-                calendarForm.setTime10_30((int) passportForm.getIdPassport());
-            }
-            if (ticketTime.equals("time11_00")) {
-                calendarForm.setTime11_00((int) passportForm.getIdPassport());
-            }
-            if (ticketTime.equals("time11_30")) {
-                calendarForm.setTime11_30((int) passportForm.getIdPassport());
-            }
-            if (ticketTime.equals("time13_00")) {
-                calendarForm.setTime13_00((int) passportForm.getIdPassport());
-            }
-            if (ticketTime.equals("time13_30")) {
-                calendarForm.setTime13_30((int) passportForm.getIdPassport());
-            }
-            if (ticketTime.equals("time14_00")) {
-                calendarForm.setTime14_00((int) passportForm.getIdPassport());
-            }
-            if (ticketTime.equals("time14_30")) {
-                calendarForm.setTime14_30((int) passportForm.getIdPassport());
-            }
-            if (ticketTime.equals("time15_00")) {
-                calendarForm.setTime15_00((int) passportForm.getIdPassport());
-            }
-            if (ticketTime.equals("time15_30")) {
-                calendarForm.setTime15_30((int) passportForm.getIdPassport());
-            }
-            if (ticketTime.equals("time16_00")) {
-                calendarForm.setTime16_00((int) passportForm.getIdPassport());
-            }
-            if (ticketTime.equals("time16_30")) {
-                calendarForm.setTime16_30((int) passportForm.getIdPassport());
-            }
-            calendarForm.setPassports(listPassport);
-            try {
                 calendarFacade.save(calendarForm);
-            } catch (MyException e) {
-                throw new RuntimeException(e);
-            }
             modelAndView.addObject("userForm", userSession);
             response.sendRedirect(request.getContextPath() + "/welcome/0");
             return modelAndView;
-        }
+        }*/
     }

@@ -34,15 +34,15 @@ public class SecurityConfiguration {
         http.csrf().disable()
                 .securityMatcher("/", "/login", "/addUser",
                         "/welcome/**",
-                        "users/**","passports/**","/doctors/**","/calendars/**","/positionDoctors/**",
-                        "/medicalHistory/**","/allUsers","/addMedicalHistory/**",
+                        "users/**","passports/**","/doctors/**","/calendars/**","/admin/**","/positionDoctors/**",
+                        "/medicalHistory/**","/allUsers",/*"/addMedicalHistory/**",*/
                         "/calendarForUser/**","/confirmTime","/doctorByPosition","/time")
                 .authorizeHttpRequests(authorize ->
                         authorize
                                 .requestMatchers("/", "/login", "/addUser").permitAll()
                                 .requestMatchers("/welcome/**").hasAnyRole("ADMIN", "USER", "DOCTOR")
                                 .requestMatchers( "users/**","passports/**","/doctors/**","/calendars/**",
-                                        "/positionDoctors/**","/addPositionDoctor", "/addDoctor").hasRole("ADMIN")
+                                        "/admin/**").hasRole("ADMIN")
                                 .requestMatchers("/medicalHistory","/allUsers","/addMedicalHistory/**")
                                 .hasRole("DOCTOR")
                                 .requestMatchers("/calendarForUser/**","/confirmTime",

@@ -1,6 +1,8 @@
 package com.web.forms;
 
+import com.web.entity.MedicalHistory;
 import com.web.entity.Passport;
+import com.web.entity.TimerTime;
 import com.web.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -22,7 +25,9 @@ public class PassportForm implements Serializable {
     private LocalDate dateBirth;
     private String gender;
     private String address;
-    private User user;
+    private UserForm user;
+    private TimerTimeForm timerTime;
+    private Set<MedicalHistoryForm> medicalHistory;
 
     public PassportForm(Passport passport){
         this.idPassport = passport.getIdPassport();
@@ -33,7 +38,6 @@ public class PassportForm implements Serializable {
         this.dateBirth = passport.getDateBirth();
         this.gender = passport.getGender();
         this.address = passport.getAddress();
-        this.user = passport.getUser();
     }
 
     @Override

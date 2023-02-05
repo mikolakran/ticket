@@ -47,21 +47,5 @@ public class DoctorFacade {
         doctor.setIdDoctor(doctorForm.getIdDoctor());
         doctor.setCabinetNumber(doctorForm.getCabinetNumber());
         doctor.setSpecialityDoctor(doctorForm.getSpecialityDoctor());
-        doctor.setUser(doctorForm.getUser());
-        Set<Calendar> calendars = new HashSet<>();
-        Set<CalendarForm> calendarTickets = doctorForm.getCalendarTickets();
-        if (calendarTickets!=null){
-            calendarTickets.forEach(calendarTicketForm -> {
-                Calendar calendar = new Calendar(calendarTicketForm.getIdDate(),calendarTicketForm.getLocalDate()
-                        ,calendarTicketForm.getTime8_30(),calendarTicketForm.getTime9_00(),calendarTicketForm.getTime9_30(),
-                        calendarTicketForm.getTime10_00(),calendarTicketForm.getTime10_30(),calendarTicketForm.getTime11_00(),
-                        calendarTicketForm.getTime11_30(),calendarTicketForm.getTime13_00(),calendarTicketForm.getTime13_30(),
-                        calendarTicketForm.getTime14_00(),calendarTicketForm.getTime14_30(),calendarTicketForm.getTime15_00(),
-                        calendarTicketForm.getTime15_30(),calendarTicketForm.getTime16_00(),calendarTicketForm.getTime16_30(),
-                        calendarTicketForm.getDoctor());
-                calendars.add(calendar);
-            });
-            doctor.setCalendars(calendars);
-        }
     }
 }

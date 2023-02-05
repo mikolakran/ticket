@@ -1,5 +1,6 @@
 package com.web.repository;
 
+import com.web.entity.Calendar;
 import com.web.entity.Doctor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

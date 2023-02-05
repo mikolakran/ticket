@@ -3,16 +3,14 @@ package com.web.facades;
 import com.web.dao.CalendarDAO;
 import com.web.entity.Calendar;
 import com.web.entity.Doctor;
-import com.web.entity.Passport;
-import com.web.exception.MyException;
 import com.web.forms.CalendarForm;
 import com.web.forms.DoctorForm;
-import com.web.forms.PassportForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -24,7 +22,7 @@ public class CalendarFacade {
     @Autowired
     private CalendarDAO calendarDAO;
 
-    public CalendarForm save(CalendarForm calendarForm) throws MyException {
+    public CalendarForm save(CalendarForm calendarForm){
         Calendar calendar = new Calendar();
         buildUser(calendar, calendarForm);
         Calendar resultSave = calendarDAO.save(calendar);
@@ -42,14 +40,22 @@ public class CalendarFacade {
         return new CalendarForm(calendar);
     }
 
-    public Set<PassportForm> getListPassport(long idDate) {
-        Set<PassportForm> passportForms = new HashSet<>();
-        Set<Passport> listPassport = calendarDAO.getListPassport(idDate);
-        listPassport.forEach(passport -> {
-            PassportForm passportForm = new PassportForm(passport);
-            passportForms.add(passportForm);
-        });
-        return passportForms;
+    public CalendarForm findLocalDate(LocalDate localDate){
+        System.out.println(localDate.toString());
+        Calendar calendar = calendarDAO.findLocalDate(localDate);
+        return new CalendarForm(calendar);
+    }
+
+    public Set<DoctorForm> findListDoctor(LocalDate localDate) {
+        Set<DoctorForm> doctorForms = new HashSet<>();
+        Set<Doctor> doctors = calendarDAO.findListDoctor(localDate);
+        if (doctors!=null) {
+            doctors.forEach(doctor -> {
+                DoctorForm doctorForm = new DoctorForm(doctor);
+                doctorForms.add(doctorForm);
+            });
+        }
+        return doctorForms;
     }
 
     public List<CalendarForm> findByDoctor_IdDoctor(long idDoctor, int pageNo, int pageSize){
@@ -63,37 +69,22 @@ public class CalendarFacade {
         return calendarForms;
     }
 
+    public CalendarForm findByMaxLocalDate(){
+        Calendar byMaxLocalDate = calendarDAO.findByMaxLocalDate();
+        return new CalendarForm(byMaxLocalDate);
+    }
+
     private void buildUser(Calendar calendar, CalendarForm calendarForm){
         calendar.setIdDate(calendarForm.getIdDate());
         calendar.setLocalDate(calendarForm.getLocalDate());
-        calendar.setTime8_30(calendarForm.getTime8_30());
-        calendar.setTime9_00(calendarForm.getTime9_00());
-        calendar.setTime9_30(calendarForm.getTime9_30());
-        calendar.setTime10_00(calendarForm.getTime10_00());
-        calendar.setTime10_30(calendarForm.getTime10_30());
-        calendar.setTime11_00(calendarForm.getTime11_00());
-        calendar.setTime11_30(calendarForm.getTime11_30());
-        calendar.setTime13_00(calendarForm.getTime13_00());
-        calendar.setTime13_30(calendarForm.getTime13_30());
-        calendar.setTime14_00(calendarForm.getTime14_00());
-        calendar.setTime14_30(calendarForm.getTime14_30());
-        calendar.setTime15_00(calendarForm.getTime15_00());
-        calendar.setTime15_30(calendarForm.getTime15_30());
-        calendar.setTime16_00(calendarForm.getTime16_00());
-        calendar.setTime16_30(calendarForm.getTime16_30());
-        DoctorForm doctor = calendarForm.getDoctor();
-        calendar.setDoctor(new Doctor(doctor.getIdDoctor(), doctor.getCabinetNumber(),
-                doctor.getSpecialityDoctor()));
-        Set<Passport> passports = new HashSet<>();
-        if (calendarForm.getPassports()!=null) {
-            Set<PassportForm> passportForms = calendarForm.getPassports();
-            passportForms.forEach(passportForm -> {
-                Passport passport = new Passport(passportForm.getIdPassport(),passportForm.getFamily(),
-                        passportForm.getName(),passportForm.getPatronymic(),passportForm.getContactNumber(),
-                        passportForm.getDateBirth(),passportForm.getGender(),passportForm.getAddress());
-                passports.add(passport);
+        Set<Doctor> listDoctor = new HashSet<>();
+        Set<DoctorForm> doctors = calendarForm.getDoctors();
+        if (doctors!=null) {
+            doctors.forEach(doctorForm -> {
+                Doctor doctor = new Doctor(doctorForm);
+                listDoctor.add(doctor);
             });
-            calendar.setPassports(passports);
+            calendar.setDoctors(listDoctor);
         }
     }
 }

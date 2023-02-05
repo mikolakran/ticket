@@ -40,11 +40,16 @@ public class PassportDAOImpl implements PassportDAO {
 
     @Override
     public Set<Calendar> getListCalendar(long idDoctor) {
-        return passportJpaRepository.getListCalendarUser(idDoctor).getCalendar();
+        return null;
     }
 
     @Override
     public Set<MedicalHistory> getListHistory(long idPassport) {
         return passportJpaRepository.getListMedicalHistory(idPassport).getMedicalHistory();
+    }
+
+    @Override
+    public Passport findByNameAndFamilyAndPatronymic(String name, String family, String patronymic) {
+        return passportJpaRepository.findByNameAndFamilyAndPatronymic(name,family,patronymic);
     }
 }

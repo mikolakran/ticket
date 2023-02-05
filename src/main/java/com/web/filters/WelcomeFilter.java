@@ -61,6 +61,8 @@ public class WelcomeFilter implements Filter {
                 }
             }
         }
+        assert session != null;
+        session.removeAttribute("doctor");
         filterChain.doFilter(servletRequest, servletResponse);
     }
 

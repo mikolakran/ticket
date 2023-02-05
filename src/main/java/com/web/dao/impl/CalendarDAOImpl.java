@@ -2,12 +2,13 @@ package com.web.dao.impl;
 
 import com.web.dao.CalendarDAO;
 import com.web.entity.Calendar;
-import com.web.entity.Passport;
+import com.web.entity.Doctor;
 import com.web.repository.CalendarJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -44,13 +45,24 @@ public class CalendarDAOImpl implements CalendarDAO {
     }
 
     @Override
-    public Set<Passport> getListPassport(long idDoctor) {
-        return calendarJpaRepository.getListPassportUser(idDoctor).getPassports();
+    public Set<Doctor> findListDoctor(LocalDate localDate) {
+        return calendarJpaRepository.findListDoctor(localDate).getDoctors();
     }
 
     @Override
     public List<Calendar> findByDoctor_IdDoctor(long idDoctor, Pageable pageable) {
-        return calendarJpaRepository.findByDoctor_IdDoctor(idDoctor,pageable);
+        return null;
+    }
+
+    @Override
+    public Calendar findLocalDate(LocalDate localDate) {
+        return calendarJpaRepository.findCalendarByLocalDate(localDate);
+    }
+
+    @Override
+    public Calendar findByMaxLocalDate() {
+        LocalDate byMaxLocalDate = calendarJpaRepository.findByMaxLocalDate();
+        return calendarJpaRepository.findCalendarByLocalDate(byMaxLocalDate);
     }
 
 }

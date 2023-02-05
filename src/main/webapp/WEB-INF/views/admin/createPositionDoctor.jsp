@@ -21,7 +21,7 @@
         <div class="container-fluid">
             <div class="col-md-7">
                 <div class="navbar-header">
-                    <a href="${pageContext.request.contextPath}/home" class="navbar-brand">It-Academy</a>
+                    <a href="#" class="navbar-brand">It-Academy</a>
                 </div>
             </div>
             <div>
@@ -37,6 +37,25 @@
                     </span>
                     </button>
                 </ul>
+            </div>
+            <div class="userinfo">
+                <div class="user">
+                    <ul>
+                        <li>
+                            <c:if test="${userForm.userName!=null}">
+                                <c:if test="${userForm.photo!=null}">
+                                    <img src="${pageContext.request.contextPath}/image" title="user-name"/>
+                                </c:if>
+                                <c:if test="${userForm.photo==null}">
+                                    <img src="${pageContext.request.contextPath}/image/smail.jfif" title="user-name"/>
+                                </c:if>
+                                <span>Hello ${userForm.userName}</span>
+                            </c:if>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div>
             </div>
         </div>
     </nav>

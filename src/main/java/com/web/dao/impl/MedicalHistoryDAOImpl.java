@@ -19,7 +19,7 @@ public class MedicalHistoryDAOImpl implements MedicalHistoryDAO {
     private MedicalHistoryJpaRepository medicalHistoryJpaRepository;
 
     @Override
-    public MedicalHistory save(MedicalHistory medicalHistory) throws MyException {
+    public MedicalHistory save(MedicalHistory medicalHistory){
         return medicalHistoryJpaRepository.save(medicalHistory);
     }
 

@@ -1,5 +1,6 @@
 package com.web.entity;
 
+import com.web.forms.DoctorForm;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,6 @@ import java.util.Set;
 public class Doctor implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_doctor")
     private long idDoctor;
     @Column(name = "cabinetNumber",nullable = false)
     private int cabinetNumber;
@@ -24,8 +24,11 @@ public class Doctor implements Serializable {
     @OneToOne(mappedBy = "doctor")
     private User user;
 
-    @OneToMany(mappedBy = "doctor")
+    @ManyToMany(mappedBy = "doctors")
     private Set<Calendar> calendars;
+
+    @OneToMany(mappedBy = "doctor")
+    private Set<TimerTime> timerTimes;
 
     public Doctor(long idDoctor, int cabinetNumber, String specialityDoctor) {
         this.idDoctor = idDoctor;
@@ -35,6 +38,12 @@ public class Doctor implements Serializable {
 
     public Doctor() {
 
+    }
+
+    public Doctor(DoctorForm doctorForm) {
+        this.idDoctor = doctorForm.getIdDoctor();
+        this.cabinetNumber = doctorForm.getCabinetNumber();
+        this.specialityDoctor = doctorForm.getSpecialityDoctor();
     }
 
     public long getIdDoctor() {
@@ -83,6 +92,14 @@ public class Doctor implements Serializable {
 
     public void setCalendars(Set<Calendar> calendars) {
         this.calendars = calendars;
+    }
+
+    public Set<TimerTime> getTimerTimes() {
+        return timerTimes;
+    }
+
+    public void setTimerTimes(Set<TimerTime> timerTimes) {
+        this.timerTimes = timerTimes;
     }
 
     @Override

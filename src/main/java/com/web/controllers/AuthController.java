@@ -57,7 +57,6 @@ public class AuthController {
         modelAndView.addObject("userForm", userSession);
 
         if (calendars != null) {
-            findFieldNameTime(userSession, calendars);
             modelAndView.addObject("calendars", calendars);
         }
 
@@ -90,29 +89,4 @@ public class AuthController {
         return modelAndView;
     }
 
-    private void findFieldNameTime(UserForm userSession, List<CalendarForm> calendars) {
-        int idPassport = (int) userSession.getPassport().getIdPassport();
-        for (CalendarForm calendar : calendars) {
-            Class<? extends CalendarForm> aClass = calendar.getClass();
-            Field[] declaredFields = aClass.getDeclaredFields();
-            for (Field declaredField : declaredFields) {
-                declaredField.setAccessible(true);
-                try {
-                    Object o = declaredField.get(calendar);
-                    if (o != null) {
-                        if (o.equals(idPassport)) {
-                            if (!declaredField.getName().equals("idDate")) {
-                                String name = declaredField.getName();
-                                name = name.replace("time", "");
-                                name = name.replace("_", "-");
-                                calendar.setNameTime(name);
-                            }
-                        }
-                    }
-                } catch (IllegalAccessException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
-    }
 }

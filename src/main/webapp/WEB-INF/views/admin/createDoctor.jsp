@@ -22,7 +22,7 @@
         <div class="container-fluid">
             <div class="col-md-7">
                 <div class="navbar-header">
-                    <a href="${pageContext.request.contextPath}/loginS" class="navbar-brand">It-Academy</a>
+                    <a href="#" class="navbar-brand">It-Academy</a>
                 </div>
             </div>
             <div>
@@ -39,12 +39,31 @@
                     </button>
                 </ul>
             </div>
+            <div class="userinfo">
+                <div class="user">
+                    <ul>
+                        <li>
+                            <c:if test="${userForm.userName!=null}">
+                                <c:if test="${userForm.photo!=null}">
+                                    <img src="${pageContext.request.contextPath}/image" title="user-name"/>
+                                </c:if>
+                                <c:if test="${userForm.photo==null}">
+                                    <img src="${pageContext.request.contextPath}/image/smail.jfif" title="user-name"/>
+                                </c:if>
+                                <span>Hello ${userForm.userName}</span>
+                            </c:if>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+            </div>
         </div>
     </nav>
 </header>
 <div class="container">
 
-    <form class="well form-horizontal" action="addDoctor" method="post" id="contact_form">
+    <form class="well form-horizontal" action="createDoctor" method="post" id="contact_form">
         <fieldset>
 
             <!-- Form Name -->
@@ -268,7 +287,7 @@
 </div><!-- /.container -->
 <p id="paragraph"></p>
 <script type="text/javascript">
-    const restUrl = "addDoctor";
+    const restUrl = "createDoctor";
 
     function url(u) {
         return "<%=request.getContextPath()%>/" + u;

@@ -22,6 +22,7 @@ public class User implements Serializable {
     @Lob
     @Column(name = "image",length = Integer.MAX_VALUE)
     private byte[] image;
+
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "idPassport")
     private Passport passport;

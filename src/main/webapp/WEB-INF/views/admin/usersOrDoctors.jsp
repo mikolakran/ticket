@@ -48,7 +48,7 @@
                                     <img src="${pageContext.request.contextPath}/image" title="user-name"/>
                                 </c:if>
                                 <c:if test="${userForm.photo==null}">
-                                    <img src="image/smail.jfif" title="user-name"/>
+                                    <img src="../image/smail.jfif" title="user-name"/>
                                 </c:if>
                                 <span>Hello ${userForm.userName}</span>
                             </c:if>
@@ -137,6 +137,44 @@
                         <td>${position.endBreak}</td>
                     </tr>
                 </c:forEach>
+            </c:if>
+            <c:if test="${doctor!=null}">
+                <tr>
+                    <th>add calendar</th>
+                    <th>
+                        <button class="custom-btn btn-6">
+                        <span>
+                         <a href="${pageContext.request.contextPath}/admin/doctor/addCalendar">add calendar</a>
+                    </span>
+                        </button>
+                    </th>
+                </tr>
+                <tr>
+                    <th>User Name</th>
+                    <th>Email</th>
+                    <th>Family</th>
+                    <th>Name</th>
+                    <th>Patronymic</th>
+                    <th>Date Birth</th>
+                    <th>Gender</th>
+                    <th>Address</th>
+                    <th>Contact Number</th>
+                    <th>Cabinet Number</th>
+                    <th>Speciality Doctor</th>
+                </tr>
+                <tr>
+                    <td>${doctor.user.userName}</td>
+                    <td>${doctor.user.email}</td>
+                    <td>${doctor.user.passport.family}</td>
+                    <td>${doctor.user.passport.name}</td>
+                    <td>${doctor.user.passport.patronymic}</td>
+                    <td>${doctor.user.passport.dateBirth}</td>
+                    <td>${doctor.user.passport.gender}</td>
+                    <td>${doctor.user.passport.address}</td>
+                    <td>${doctor.user.passport.contactNumber}</td>
+                    <td>${doctor.cabinetNumber}</td>
+                    <td>${doctor.specialityDoctor}</td>
+                </tr>
             </c:if>
         </table>
     </div>

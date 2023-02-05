@@ -4,7 +4,7 @@ import com.web.exception.LoginException;
 import com.web.exception.MyException;
 
 public interface DAO<T,K> {
-    T save(T t) throws MyException;
+    T save(T t) ;
 
     T get(K k);
 

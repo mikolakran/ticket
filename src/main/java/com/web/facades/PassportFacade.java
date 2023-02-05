@@ -48,4 +48,20 @@ public class PassportFacade {
         return medicalHistories;
     }
 
+    public Passport findNameAndFamilyAndPatronymic(Passport passport){
+        return passportDAO.findByNameAndFamilyAndPatronymic(passport.getName(),
+                passport.getFamily(), passport.getPatronymic());
+    }
+
+    private void build(Passport passport, PassportForm passportForm) {
+        passport.setIdPassport(passportForm.getIdPassport());
+        passport.setFamily(passportForm.getFamily());
+        passport.setName(passportForm.getName());
+        passport.setPatronymic(passportForm.getPatronymic());
+        passport.setContactNumber(passportForm.getContactNumber());
+        passport.setDateBirth(passportForm.getDateBirth());
+        passport.setGender(passportForm.getGender());
+        passport.setAddress(passportForm.getAddress());
+    }
+
 }

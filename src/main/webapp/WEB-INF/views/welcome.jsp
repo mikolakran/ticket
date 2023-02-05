@@ -69,28 +69,38 @@
                 </c:if>
                 <button class="custom-btn btn-6">
                         <span>
-                        <a href="${pageContext.request.contextPath}/addPositionDoctor">add Position
+                      <a href="${pageContext.request.contextPath}/admin/createDoctor">add Doctor</a>
+                    </span>
+                </button>
+                <button class="custom-btn btn-6">
+                        <span>
+                      <a href="${pageContext.request.contextPath}/admin/findDoctor">add Calendar Doctor</a>
+                    </span>
+                </button>
+                <button class="custom-btn btn-6">
+                        <span>
+                        <a href="${pageContext.request.contextPath}/admin/createPositionDoctor">add Position
                     Doctor</a>
                     </span>
                 </button>
                 <button class="custom-btn btn-6">
                         <span>
-                      <a href="${pageContext.request.contextPath}/addDoctor">add Doctor</a>
+                      <a href="${pageContext.request.contextPath}/admin/createCalendar">add in calendar</a>
                     </span>
                 </button>
                 <button class="custom-btn btn-6">
                         <span>
-                         <a href="${pageContext.request.contextPath}/users">Your users</a>
+                         <a href="${pageContext.request.contextPath}/admin/users">Your users</a>
                     </span>
                 </button>
                 <button class="custom-btn btn-6">
                         <span>
-                        <a href="${pageContext.request.contextPath}/doctors">Your doctors</a>
+                        <a href="${pageContext.request.contextPath}/admin/doctors">Your doctors</a>
                     </span>
                 </button>
                 <button class="custom-btn btn-6">
                         <span>
-                        <a href="${pageContext.request.contextPath}/positions">Your position Doctor</a>
+                        <a href="${pageContext.request.contextPath}/admin/positions">Your position Doctor</a>
                     </span>
                 </button>
             </security:authorize>

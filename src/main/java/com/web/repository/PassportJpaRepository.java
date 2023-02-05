@@ -9,8 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface PassportJpaRepository extends JpaRepository<Passport,Long> {
-    @Query("SELECT t FROM Passport t LEFT JOIN FETCH t.calendar where t.idPassport = :id")
-    Passport getListCalendarUser(@Param("id") long id);
     @Query("SELECT t FROM Passport t LEFT JOIN FETCH t.medicalHistory where t.idPassport = :id")
     Passport getListMedicalHistory(@Param("id") long id);
+    Passport findByNameAndFamilyAndPatronymic(String name,String family,String patronymic);
 }
