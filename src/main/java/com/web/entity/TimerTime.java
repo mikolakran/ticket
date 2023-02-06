@@ -3,6 +3,7 @@ package com.web.entity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "timer_time")
@@ -11,13 +12,17 @@ public class TimerTime implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idTime;
     @Column
-    private String time;
+    private LocalTime time;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @ManyToOne(cascade = {CascadeType.REFRESH})
     @JoinColumn(name = "idDoctor")
     private Doctor doctor;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "idLocalDate")
+    private Calendar calendar;
+
+    @OneToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "idPassport")
     private Passport passport;
 
@@ -32,11 +37,11 @@ public class TimerTime implements Serializable {
         this.idTime = idTime;
     }
 
-    public String getTime() {
+    public LocalTime getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(LocalTime time) {
         this.time = time;
     }
 
@@ -54,5 +59,13 @@ public class TimerTime implements Serializable {
 
     public void setPassport(Passport passport) {
         this.passport = passport;
+    }
+
+    public Calendar getCalendar() {
+        return calendar;
+    }
+
+    public void setCalendar(Calendar calendar) {
+        this.calendar = calendar;
     }
 }

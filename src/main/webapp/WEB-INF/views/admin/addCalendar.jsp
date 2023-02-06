@@ -127,6 +127,28 @@
                     </div>
                 </div>
             </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">timer Minutes</label>
+                <div class="col-md-4 selectContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                        <select id="timerMinutes" name="timerMinutes" class="form-control selectpicker">
+                            <option>10</option>
+                            <option>15</option>
+                            <option>20</option>
+                            <option>25</option>
+                            <option>30</option>
+                            <option>35</option>
+                            <option>40</option>
+                            <option>45</option>
+                            <option>50</option>
+                            <option>55</option>
+                            <option>60</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
             <!-- Success message -->
             <div class="alert alert-success" role="alert" id="success_message">Success <i
                     class="glyphicon glyphicon-thumbs-up"></i> Success!.
@@ -157,11 +179,13 @@
         var addDateCalendar = $("#addDateCalendar").val()
         var firstDayOff = $("#firstDayOff").val()
         var secondDayOff = $("#secondDayOff").val()
+        var timerMinutes = $("#timerMinutes").val()
 
         var calendar = {
             localDate: addDateCalendar,
             firstDayOff: firstDayOff,
             secondDayOff: secondDayOff,
+            timerMinutes:timerMinutes
         }
         $.ajax({
             url: url(restUrl),

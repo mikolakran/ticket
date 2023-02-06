@@ -3,9 +3,11 @@ package com.web.facades;
 import com.web.dao.DoctorDAO;
 import com.web.entity.Calendar;
 import com.web.entity.Doctor;
+import com.web.entity.PositionDoctor;
 import com.web.exception.MyException;
 import com.web.forms.CalendarForm;
 import com.web.forms.DoctorForm;
+import com.web.forms.PositionDoctorForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -41,6 +43,16 @@ public class DoctorFacade {
             calendarForms.add(calendarForm);
         });
         return calendarForms;
+    }
+
+    public Set<PositionDoctorForm> getPosition(long idDoctor){
+        Set<PositionDoctorForm> positionDoctorForms = new HashSet<>();
+        Set<PositionDoctor> positions = doctorDAO.getPosition(idDoctor);
+        positions.forEach(positionDoctor -> {
+            PositionDoctorForm positionDoctorForm = new PositionDoctorForm(positionDoctor);
+            positionDoctorForms.add(positionDoctorForm);
+        });
+        return positionDoctorForms;
     }
 
     private void buildUser(Doctor doctor, DoctorForm doctorForm) {

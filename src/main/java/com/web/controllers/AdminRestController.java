@@ -2,12 +2,10 @@ package com.web.controllers;
 
 import com.web.entity.Doctor;
 import com.web.entity.Passport;
+import com.web.entity.TimerTime;
 import com.web.exception.MyException;
 import com.web.facades.*;
-import com.web.forms.CalendarForm;
-import com.web.forms.DoctorForm;
-import com.web.forms.PositionDoctorForm;
-import com.web.forms.UserForm;
+import com.web.forms.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.TextStyle;
 import java.util.*;
 
@@ -44,6 +43,9 @@ public class AdminRestController {
 
     @Autowired
     private CalendarFacade calendarFacade;
+
+    @Autowired
+    private TimerTimeFacade timerTimeFacade;
 
 
     @RequestMapping(value = "/createDoctor", method = RequestMethod.POST)
@@ -122,7 +124,8 @@ public class AdminRestController {
                     orElseThrow(NoSuchElementException::new);
 
             LocalDate localDateMax = calendarMaxValue.getLocalDate();
-             resultSaveCalendarForm = addCalendarDoctor(calendarForm, doctorForm, localDateMax);
+            LocalDate localDate = localDateMax.plusDays(1);
+            resultSaveCalendarForm = addCalendarDoctor(calendarForm, doctorForm, localDate);
 
         } else {
             LocalDate currentDate = LocalDate.now();
@@ -132,7 +135,7 @@ public class AdminRestController {
     }
 
     private CalendarForm addCalendarDoctor(CalendarForm calendarForm, DoctorForm doctorForm, LocalDate localDateMax) {
-        CalendarForm resultSave= null;
+        CalendarForm resultSave = null;
         while (localDateMax.isBefore(calendarForm.getLocalDate())
                 || localDateMax.isEqual(calendarForm.getLocalDate())) {
 
@@ -141,17 +144,58 @@ public class AdminRestController {
 
             if (!nameWeek.equals(calendarForm.getFirstDayOff())
                     && !nameWeek.equals(calendarForm.getSecondDayOff())) {
+
                 CalendarForm calendarLocalDate = calendarFacade.findLocalDate(localDateMax);
                 Set<DoctorForm> listDoctor = calendarFacade.findListDoctor(localDateMax);
-                if (listDoctor==null){
+                if (listDoctor == null) {
                     listDoctor = new HashSet<>();
                 }
                 listDoctor.add(doctorForm);
                 calendarLocalDate.setDoctors(listDoctor);
                 resultSave = calendarFacade.save(calendarLocalDate);
+
+                int timerMinutes = calendarForm.getTimerMinutes();
+                createTimerTimeForDoctor(doctorForm, resultSave, timerMinutes);
+
             }
             localDateMax = localDateMax.plusDays(1);
         }
         return resultSave;
+    }
+
+    private void createTimerTimeForDoctor(DoctorForm doctorForm, CalendarForm calendarLocalDate, int timerMinutes) {
+        if (timerMinutes != 0) {
+            PositionDoctorForm positionDoctor = new PositionDoctorForm();
+            Set<PositionDoctorForm> position = doctorFacade.getPosition(doctorForm.getIdDoctor());
+            if (position.size() == 1) {
+                position.forEach(positionDoctorForm -> {
+                    positionDoctor.setPositionDoctorId(positionDoctorForm.getPositionDoctorId());
+                    positionDoctor.setPosition(positionDoctorForm.getPosition());
+                    positionDoctor.setBeginningWork(positionDoctorForm.getBeginningWork());
+                    positionDoctor.setBeginningBreak(positionDoctorForm.getBeginningBreak());
+                    positionDoctor.setEndBreak(positionDoctorForm.getEndBreak());
+                    positionDoctor.setEndWork(positionDoctorForm.getEndWork());
+                });
+            } else {
+                throw new RuntimeException("doctor position more 1 or 0");
+            }
+            countTimerTime(doctorForm, calendarLocalDate, timerMinutes,
+                    positionDoctor.getBeginningWork(),  positionDoctor.getBeginningBreak());
+
+            countTimerTime(doctorForm, calendarLocalDate, timerMinutes,
+                    positionDoctor.getEndBreak(), positionDoctor.getEndWork());
+        }
+    }
+
+    private void countTimerTime(DoctorForm doctorForm, CalendarForm calendarLocalDate, int timerMinutes,
+                                LocalTime beginningWork, LocalTime beginningBreak) {
+        while (beginningWork.isBefore(beginningBreak)) {
+            TimerTimeForm timerTimeForm = new TimerTimeForm();
+            timerTimeForm.setTime(beginningWork);
+            timerTimeForm.setDoctor(doctorForm);
+            timerTimeForm.setCalendar(calendarLocalDate);
+            timerTimeFacade.save(timerTimeForm);
+            beginningWork = beginningWork.plusMinutes(timerMinutes);
+        }
     }
 }

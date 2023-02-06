@@ -1,5 +1,6 @@
 package com.web.entity;
 
+import com.web.forms.CalendarForm;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -22,8 +23,16 @@ public class Calendar implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "idDoctor"))
     private Set<Doctor> doctors;
 
+    @OneToMany(mappedBy = "calendar")
+    private Set<TimerTime> timerTimes;
+
     public Calendar() {
 
+    }
+
+    public Calendar(CalendarForm calendarForm){
+        this.idDate = calendarForm.getIdDate();
+        this.localDate = calendarForm.getLocalDate();
     }
 
     public long getIdDate() {
@@ -48,6 +57,14 @@ public class Calendar implements Serializable {
 
     public void setDoctors(Set<Doctor> doctors) {
         this.doctors = doctors;
+    }
+
+    public Set<TimerTime> getTimerTimes() {
+        return timerTimes;
+    }
+
+    public void setTimerTimes(Set<TimerTime> timerTimes) {
+        this.timerTimes = timerTimes;
     }
 
     @Override

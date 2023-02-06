@@ -1,5 +1,6 @@
 package com.web.entity;
 
+import com.web.forms.PassportForm;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -9,10 +10,10 @@ import java.util.Set;
 @Entity
 @Table(name = "passport")
 public class Passport implements Serializable {
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Column(name = "id_passport")
-        private long idPassport;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_passport")
+    private long idPassport;
     @Column(name = "family", nullable = false)
     private String family;
     @Column(name = "name", nullable = false)
@@ -44,6 +45,17 @@ public class Passport implements Serializable {
         this.patronymic = patronymic;
         this.dateBirth = dateBirth;
         this.address = address;
+    }
+
+    public Passport(PassportForm passportForm) {
+        this.idPassport = passportForm.getIdPassport();
+        this.family = passportForm.getFamily();
+        this.name = passportForm.getName();
+        this.patronymic = passportForm.getPatronymic();
+        this.contactNumber = passportForm.getContactNumber();
+        this.dateBirth = passportForm.getDateBirth();
+        this.gender = passportForm.getGender();
+        this.address = passportForm.getAddress();
     }
 
     public Passport(long idPassport, String family, String name, String patronymic,
