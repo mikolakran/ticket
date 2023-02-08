@@ -6,7 +6,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>All Doctors</title>
+    <title>All Calendar</title>
     <link rel="stylesheet"
           href="<c:url value="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/> "/>
     <link rel="stylesheet"
@@ -47,7 +47,7 @@
                                     <img src="${pageContext.request.contextPath}/image" title="user-name"/>
                                 </c:if>
                                 <c:if test="${userForm.photo==null}">
-                                    <img src="image/smail.jfif" title="user-name"/>
+                                    <img src="${pageContext.request.contextPath}/image/smail.jfif" title="user-name"/>
                                 </c:if>
                                 <span>Hello ${userForm.userName}</span>
                             </c:if>
@@ -65,24 +65,35 @@
     <div class="col-md-1"></div>
     <div class=" col-md-4">
         <div>
-            <h1 id="h1r" class=" text-center">Doctors</h1>
-            <c:if test="${doctorsNull!=null}">
-                <h3 class="text-center">${doctorsNull}</h3>
-            </c:if>
-            <c:if test="${doctorsNull==null}">
-                <h2 class="text-center">All Doctors</h2>
-            </c:if>
-            <c:forEach var="doctor" items="${doctors}">
-                <div class="cell three">
-                    <a href="${pageContext.request.contextPath}/calendarForUser/${0}?idDoctor=${doctor.idDoctor}"
-                       class="in_active">
-                        <div class="left doctor">
-                            <p class="grey">${doctor.user.passport.family} ${doctor.user.passport.name} ${doctor.user.passport.patronymic}</p>
-                            <h6>${doctor.specialityDoctor},к.${doctor.cabinetNumber}</h6>
-                        </div>
-                    </a>
+            <h1 id="h1r" class=" text-center">Calendar</h1>
+            <c:forEach var="calendar" items="${calendarDoctors}">
+                <div class="col-md-4">
+                    <div class="cell three">
+                        <button class="custom-btn btn-6">
+                        <span>
+                         <a href="${pageContext.request.contextPath}/user/doctors/calendars/time?localDate=${calendar.localDate}&idDoctor=${idDoctor}"
+                         >${calendar.localDate}</a>
+                    </span>
+                        </button>
+                    </div>
                 </div>
             </c:forEach>
+        </div>
+        <div>
+            <c:if test="${pageMinus!=-1}">
+                <button class="custom-btn btn-6">
+                        <span>
+                         <a href="${pageContext.request.contextPath}/user/doctors/calendars/${pageNo-1}?idDoctor=${idDoctor}"
+                         >Назад</a>
+                    </span>
+                </button>
+            </c:if>
+            <button class="custom-btn btn-6">
+                        <span>
+                         <a href="${pageContext.request.contextPath}/user/doctors/calendars/${pageNo+1}?idDoctor=${idDoctor}"
+                         >Далее</a>
+                    </span>
+            </button>
         </div>
     </div>
     <div class="col-md-2"></div>

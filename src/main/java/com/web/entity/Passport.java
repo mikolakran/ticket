@@ -32,8 +32,8 @@ public class Passport implements Serializable {
     @OneToOne(mappedBy = "passport")
     private User user;
 
-    @OneToOne(mappedBy = "passport")
-    private TimerTime timerTime;
+    @OneToMany(mappedBy = "passport")
+    private Set<TimerTime> timerTimes;
 
     @OneToMany(mappedBy = "passport")
     private Set<MedicalHistory> medicalHistory;
@@ -154,12 +154,12 @@ public class Passport implements Serializable {
         this.medicalHistory = medicalHistory;
     }
 
-    public TimerTime getTimerTime() {
-        return timerTime;
+    public Set<TimerTime> getTimerTimes() {
+        return timerTimes;
     }
 
-    public void setTimerTime(TimerTime timerTime) {
-        this.timerTime = timerTime;
+    public void setTimerTimes(Set<TimerTime> timerTimes) {
+        this.timerTimes = timerTimes;
     }
 
     @Override

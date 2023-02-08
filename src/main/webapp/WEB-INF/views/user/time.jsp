@@ -6,14 +6,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Confirm Time</title>
+    <title>Ticket Time</title>
     <link rel="stylesheet"
           href="<c:url value="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/> "/>
     <link rel="stylesheet"
           href="<c:url value="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/> "/>
     <link rel="stylesheet" href="/css/user.css"/>
-    <link rel="stylesheet" href="/css/table.css"/>
-    <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/table.css" />
 </head>
 <body>
 <header>
@@ -47,7 +47,7 @@
                                     <img src="${pageContext.request.contextPath}/image" title="user-name"/>
                                 </c:if>
                                 <c:if test="${userForm.photo==null}">
-                                    <img src="image/smail.jfif" title="user-name"/>
+                                    <img src="${pageContext.request.contextPath}/image/smail.jfif" title="user-name"/>
                                 </c:if>
                                 <span>Hello ${userForm.userName}</span>
                             </c:if>
@@ -65,13 +65,21 @@
     <div class="col-md-1"></div>
     <div class=" col-md-4">
         <div>
-            <h1 id="h1r" class=" text-center">Confirm</h1>
-            <ul>
-                <li>
-                    <a href="${pageContext.request.contextPath}/addUserTimeTicket?idDate=${userForm.idDate}&ticketTime=${userForm.ticketTime}"
-                       class="btn btn-primary">Save time</a>
-                </li>
-            </ul>
+            <h1 id="h1r" class=" text-center">Ticket Time</h1>
+            <c:if test="${doctorsNull!=null}">
+                <h3 class="text-center">${doctorsNull}</h3>
+            </c:if>
+            <c:if test="${doctorsNull==null}">
+                <h2 class="text-center">Ticket</h2>
+            </c:if>
+               <c:forEach var="time" items="${timeTimers}">
+                       <button class="custom-btn btn-6">
+                        <span>
+                        <a href="${pageContext.request.contextPath}
+                        /user/doctors/calendars/time/confirmTime?idTime=${time.idTime}">${time.time}</a>
+                    </span>
+                       </button>
+               </c:forEach>
         </div>
     </div>
     <div class="col-md-2"></div>

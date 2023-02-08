@@ -4,6 +4,7 @@ import com.web.facades.CalendarFacade;
 import com.web.facades.UserFacade;
 import com.web.forms.CalendarForm;
 import com.web.forms.PositionDoctorForm;
+import com.web.forms.TimerTimeForm;
 import com.web.forms.UserForm;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -51,13 +52,13 @@ public class AuthController {
                                        @SessionAttribute UserForm userSession,
                                        @SessionAttribute(value = "positions", required = false)
                                        List<PositionDoctorForm> positions,
-                                       @SessionAttribute(value = "calendars", required = false)
-                                       List<CalendarForm> calendars) {
+                                       @SessionAttribute(value = "recordToDoctor", required = false)
+                                       List<TimerTimeForm> recordToDoctor) {
         ModelAndView modelAndView = new ModelAndView("welcome");
         modelAndView.addObject("userForm", userSession);
 
-        if (calendars != null) {
-            modelAndView.addObject("calendars", calendars);
+        if (recordToDoctor != null) {
+            modelAndView.addObject("recordToDoctor", recordToDoctor);
         }
 
         if (positions != null) {
@@ -87,6 +88,11 @@ public class AuthController {
             }
         }
         return modelAndView;
+    }
+
+    @GetMapping("/addUser")
+    public String registration() {
+        return "addUser";
     }
 
 }

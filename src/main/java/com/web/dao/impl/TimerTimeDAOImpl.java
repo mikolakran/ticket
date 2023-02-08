@@ -6,6 +6,9 @@ import com.web.repository.TimerTimeJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Repository
 public class TimerTimeDAOImpl implements TimerTimeDAO {
 
@@ -30,5 +33,15 @@ public class TimerTimeDAOImpl implements TimerTimeDAO {
     @Override
     public void delete(Long aLong) {
 
+    }
+
+    @Override
+    public TimerTime get(long idTimeTimer) {
+        return timerTimeJpaRepository.findById(idTimeTimer).orElse(null);
+    }
+
+    @Override
+    public List<TimerTime> findTimeByDoctorAndLocalDate(long idDoctor, LocalDate localDate) {
+        return timerTimeJpaRepository.findTimeByDoctorAndLocalDate(idDoctor, localDate);
     }
 }

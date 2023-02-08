@@ -5,6 +5,7 @@ import com.web.facades.PassportFacade;
 import com.web.facades.PositionDoctorFacade;
 import com.web.forms.CalendarForm;
 import com.web.forms.PositionDoctorForm;
+import com.web.forms.TimerTimeForm;
 import com.web.forms.UserForm;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -13,6 +14,7 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
 
 
@@ -43,14 +45,13 @@ public class WelcomeFilter implements Filter {
             if (userForm != null) {
                 if (userForm.getRole().equals("user")) {
                     LocalDate currentDate = LocalDate.now();
-                    Set<CalendarForm> calendars =
-                            passportFacade.getListCalendarUser(userForm.getPassport().getIdPassport());
+                    Set<TimerTimeForm> listRecordToDoctor = passportFacade
+                            .findListRecordToDoctor(userForm.getPassport().getIdPassport());
 
-                    List<CalendarForm> calendarForms = calendars.stream()
-                            .filter(calendar -> currentDate.isBefore(calendar.getLocalDate()) ||
-                            currentDate.isEqual(calendar.getLocalDate())).toList();
-
-                    session.setAttribute("calendars", calendarForms);
+                    List<TimerTimeForm> timerTimeForms = listRecordToDoctor.stream().filter(timerTimeForm ->
+                            currentDate.isBefore(timerTimeForm.getCalendar().getLocalDate()) ||
+                                    currentDate.isEqual(timerTimeForm.getCalendar().getLocalDate())).toList();
+                    session.setAttribute("recordToDoctor",timerTimeForms);
 
                     List<PositionDoctorForm> positions = positionDoctorFacade.findAll();
                     if (positions.size() != 0) {

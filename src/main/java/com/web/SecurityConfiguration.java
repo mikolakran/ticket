@@ -34,7 +34,7 @@ public class SecurityConfiguration {
         http.csrf().disable()
                 .securityMatcher("/", "/login", "/addUser",
                         "/welcome/**",
-                        "users/**","passports/**","/doctors/**","/calendars/**","/admin/**","/positionDoctors/**",
+                        "users/**","passports/**","/doctors/**","/calendars/**","/admin/**","/user/**","/positionDoctors/**",
                         "/medicalHistory/**","/allUsers",/*"/addMedicalHistory/**",*/
                         "/calendarForUser/**","/confirmTime","/doctorByPosition","/time")
                 .authorizeHttpRequests(authorize ->

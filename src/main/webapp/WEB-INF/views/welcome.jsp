@@ -105,7 +105,7 @@
                 </button>
             </security:authorize>
             <security:authorize access="hasRole('ROLE_USER')">
-                <c:if test="${calendars.size()!=0}">
+                <c:if test="${recordToDoctor.size()!=0}">
                     <h4 style="color: red">Для отмены записи звонить в регистратуру</h4>
             <table>
                 <tr>
@@ -116,25 +116,25 @@
                     <th>Family Doctor</th>
                     <th>Name Doctor</th>
                 </tr>
-                <c:forEach var="calendar" items="${calendars}">
+                <c:forEach var="time" items="${recordToDoctor}">
                 <tr>
-                    <td>${calendar.localDate}</td>
-                    <td>${calendar.nameTime}</td>
-                    <td>${calendar.doctor.cabinetNumber}</td>
-                    <td>${calendar.doctor.specialityDoctor}</td>
-                    <td>${calendar.doctor.user.passport.family}</td>
-                    <td>${calendar.doctor.user.passport.name}</td>
+                    <td>${time.calendar.localDate}</td>
+                    <td>${time.time}</td>
+                    <td>${time.doctor.cabinetNumber}</td>
+                    <td>${time.doctor.specialityDoctor}</td>
+                    <td>${time.doctor.user.passport.family}</td>
+                    <td>${time.doctor.user.passport.name}</td>
                 </tr>
                 </c:forEach>
             </table>
                 </c:if>
-                <c:if test="${calendars.size()==0}">
+                <c:if test="${recordToDoctor.size()==0}">
                 <div class="content">
                     <c:forEach var="position" items="${positions}">
                         <div class="col-md-4">
                             <button class="custom-btn btn-6">
                         <span>
-                        <a href="${pageContext.request.contextPath}/doctorByPosition?idPosition=${position.positionDoctorId}"
+                        <a href="${pageContext.request.contextPath}/user/doctors?idPosition=${position.positionDoctorId}"
                            >${position.position}</a>
                     </span>
                             </button>
@@ -178,14 +178,14 @@
     </div>
     <div class="col-md-1">
         <security:authorize access="hasRole('ROLE_USER')">
-        <c:if test="${calendars.size()!=0}">
+        <c:if test="${recordToDoctor.size()!=0}">
             <h4>Запись к врачу</h4>
             <div class="content">
                 <c:forEach var="position" items="${positions}">
                     <div >
                         <button class="custom-btn btn-6">
                         <span>
-                        <a href="${pageContext.request.contextPath}/doctorByPosition?idPosition=${position.positionDoctorId}"
+                        <a href="${pageContext.request.contextPath}/user/doctors?idPosition=${position.positionDoctorId}"
                         >${position.position}</a>
                     </span>
                         </button>

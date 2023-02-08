@@ -113,7 +113,7 @@ public class AdminController {
     public ModelAndView addMonth(@SessionAttribute("doctor") DoctorForm doctorForm,
                                  @SessionAttribute UserForm userSession) {
         ModelAndView modelAndView = new ModelAndView("admin/addCalendar");
-        Set<CalendarForm> calendars = doctorFacade.getCalendar(doctorForm.getIdDoctor());
+        List<CalendarForm> calendars = doctorFacade.getCalendar(doctorForm.getIdDoctor());
         if (calendars.size()!=0) {
             CalendarForm calendarForm = calendars.stream().max(Comparator.comparing(CalendarForm::getLocalDate)).
                     orElseThrow(NoSuchElementException::new);

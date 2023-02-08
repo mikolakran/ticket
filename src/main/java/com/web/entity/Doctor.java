@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -25,7 +26,7 @@ public class Doctor implements Serializable {
     private User user;
 
     @ManyToMany(mappedBy = "doctors")
-    private Set<Calendar> calendars;
+    private List<Calendar> calendars;
 
     @OneToMany(mappedBy = "doctor")
     private Set<TimerTime> timerTimes;
@@ -86,11 +87,11 @@ public class Doctor implements Serializable {
         this.user = user;
     }
 
-    public Set<Calendar> getCalendars() {
+    public List<Calendar> getCalendars() {
         return calendars;
     }
 
-    public void setCalendars(Set<Calendar> calendars) {
+    public void setCalendars(List<Calendar> calendars) {
         this.calendars = calendars;
     }
 

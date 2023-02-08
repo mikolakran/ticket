@@ -22,7 +22,7 @@ public class TimerTime implements Serializable {
     @JoinColumn(name = "idLocalDate")
     private Calendar calendar;
 
-    @OneToOne(cascade = CascadeType.REFRESH)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "idPassport")
     private Passport passport;
 

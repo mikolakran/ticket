@@ -1,8 +1,11 @@
 package com.web.forms;
 
+import com.web.entity.TimerTime;
+
+import java.io.Serializable;
 import java.time.LocalTime;
 
-public class TimerTimeForm {
+public class TimerTimeForm implements Serializable {
     private long idTime;
     private LocalTime time;
     private CalendarForm calendar;
@@ -10,6 +13,16 @@ public class TimerTimeForm {
     private PassportForm passport;
 
     public TimerTimeForm() {
+    }
+
+    public TimerTimeForm(TimerTime timerTime) {
+        this.idTime = timerTime.getIdTime();
+        this.time = timerTime.getTime();
+        this.calendar = new CalendarForm(timerTime.getCalendar());
+        this.doctor = new DoctorForm(timerTime.getDoctor());
+        if (timerTime.getPassport()!=null){
+            this.passport = new PassportForm(timerTime.getPassport());
+        }
     }
 
     public long getIdTime() {

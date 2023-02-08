@@ -117,7 +117,7 @@ public class AdminRestController {
     public ResponseEntity<CalendarForm> createCalendarDoctor(@RequestBody CalendarForm calendarForm,
                                                              @SessionAttribute(value = "doctor") DoctorForm doctorForm) {
         CalendarForm resultSaveCalendarForm;
-        Set<CalendarForm> calendars = doctorFacade.getCalendar(doctorForm.getIdDoctor());
+        List<CalendarForm> calendars = doctorFacade.getCalendar(doctorForm.getIdDoctor());
 
         if (calendars.size() != 0) {
             CalendarForm calendarMaxValue = calendars.stream().max(Comparator.comparing(CalendarForm::getLocalDate)).

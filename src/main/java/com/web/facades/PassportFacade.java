@@ -4,14 +4,17 @@ import com.web.dao.PassportDAO;
 import com.web.entity.Calendar;
 import com.web.entity.MedicalHistory;
 import com.web.entity.Passport;
+import com.web.entity.TimerTime;
 import com.web.exception.MyException;
 import com.web.forms.CalendarForm;
 import com.web.forms.MedicalHistoryForm;
 import com.web.forms.PassportForm;
+import com.web.forms.TimerTimeForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Component
@@ -19,8 +22,8 @@ public class PassportFacade {
     @Autowired
     private PassportDAO passportDAO;
 
-    public Passport save(Passport passport) throws MyException {
-        return passportDAO.save(passport);
+    public Passport save(PassportForm passport){
+        return passportDAO.save(new Passport(passport));
     }
 
     public PassportForm get(long idPassport) {
@@ -31,10 +34,12 @@ public class PassportFacade {
     public Set<CalendarForm> getListCalendarUser(long idPassport) {
         Set<CalendarForm> calendarForms = new HashSet<>();
         Set<Calendar> calendars = passportDAO.getListCalendar(idPassport);
-        calendars.forEach(calendarTicket -> {
-            CalendarForm calendarForm = new CalendarForm(calendarTicket);
-            calendarForms.add(calendarForm);
-        });
+        if (calendars!=null) {
+            calendars.forEach(calendarTicket -> {
+                CalendarForm calendarForm = new CalendarForm(calendarTicket);
+                calendarForms.add(calendarForm);
+            });
+        }
         return calendarForms;
     }
 
@@ -51,6 +56,16 @@ public class PassportFacade {
     public Passport findNameAndFamilyAndPatronymic(Passport passport){
         return passportDAO.findByNameAndFamilyAndPatronymic(passport.getName(),
                 passport.getFamily(), passport.getPatronymic());
+    }
+
+    public Set<TimerTimeForm> findListRecordToDoctor(long idPassport){
+        Set<TimerTimeForm> timerTimeForms = new HashSet<>();
+        Set<TimerTime> listRecord = passportDAO.findListRecord(idPassport);
+        listRecord.forEach(timerTime -> {
+            TimerTimeForm timerTimeForm = new TimerTimeForm(timerTime);
+            timerTimeForms.add(timerTimeForm);
+        });
+        return timerTimeForms;
     }
 
     private void build(Passport passport, PassportForm passportForm) {

@@ -9,9 +9,13 @@ import com.web.forms.CalendarForm;
 import com.web.forms.DoctorForm;
 import com.web.forms.PositionDoctorForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Component
@@ -35,9 +39,19 @@ public class DoctorFacade {
         return new DoctorForm(resultDoctor);
     }
 
-    public Set<CalendarForm> getCalendar(long idDoctor){
-        Set<CalendarForm> calendarForms = new HashSet<>();
-        Set<Calendar> listCalendar = doctorDAO.getCalendar(idDoctor);
+    public List<CalendarForm> getCalendar(long idDoctor){
+        List<CalendarForm> calendarForms =new ArrayList<>();
+        List<Calendar> listCalendar = doctorDAO.getCalendar(idDoctor);
+        listCalendar.forEach(calendarTicket -> {
+            CalendarForm calendarForm = new CalendarForm(calendarTicket);
+            calendarForms.add(calendarForm);
+        });
+        return calendarForms;
+    }
+    public List<CalendarForm> getCalendar(long idDoctor,int pageNo,int pageSize){
+        Pageable pageable = PageRequest.of(pageNo,pageSize);
+        List<CalendarForm> calendarForms = new ArrayList<>();
+        List<Calendar> listCalendar = doctorDAO.getCalendar(idDoctor,pageable);
         listCalendar.forEach(calendarTicket -> {
             CalendarForm calendarForm = new CalendarForm(calendarTicket);
             calendarForms.add(calendarForm);

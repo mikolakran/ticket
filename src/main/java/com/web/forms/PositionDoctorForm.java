@@ -1,17 +1,11 @@
 package com.web.forms;
 
 import com.web.entity.PositionDoctor;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.Set;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class PositionDoctorForm implements Serializable {
     private int positionDoctorId;
     private String position;
@@ -21,7 +15,8 @@ public class PositionDoctorForm implements Serializable {
     private LocalTime endWork;
     private Set<DoctorForm> doctors;
 
-
+    public PositionDoctorForm() {
+    }
 
     public PositionDoctorForm(PositionDoctor positionDoctor) {
         this.positionDoctorId = positionDoctor.getPositionDoctorId();
@@ -30,6 +25,62 @@ public class PositionDoctorForm implements Serializable {
         this.beginningBreak = positionDoctor.getBeginningBreak();
         this.endBreak = positionDoctor.getEndBreak();
         this.endWork = positionDoctor.getEndWork();
+    }
+
+    public int getPositionDoctorId() {
+        return positionDoctorId;
+    }
+
+    public void setPositionDoctorId(int positionDoctorId) {
+        this.positionDoctorId = positionDoctorId;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public LocalTime getBeginningWork() {
+        return beginningWork;
+    }
+
+    public void setBeginningWork(LocalTime beginningWork) {
+        this.beginningWork = beginningWork;
+    }
+
+    public LocalTime getBeginningBreak() {
+        return beginningBreak;
+    }
+
+    public void setBeginningBreak(LocalTime beginningBreak) {
+        this.beginningBreak = beginningBreak;
+    }
+
+    public LocalTime getEndBreak() {
+        return endBreak;
+    }
+
+    public void setEndBreak(LocalTime endBreak) {
+        this.endBreak = endBreak;
+    }
+
+    public LocalTime getEndWork() {
+        return endWork;
+    }
+
+    public void setEndWork(LocalTime endWork) {
+        this.endWork = endWork;
+    }
+
+    public Set<DoctorForm> getDoctors() {
+        return doctors;
+    }
+
+    public void setDoctors(Set<DoctorForm> doctors) {
+        this.doctors = doctors;
     }
 
     @Override
