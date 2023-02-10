@@ -14,6 +14,9 @@ public class MedicalHistoryForm implements Serializable {
     private String accompanyingIllnesses;
     private PassportForm passportForm;
 
+    public MedicalHistoryForm() {
+    }
+
     public MedicalHistoryForm(MedicalHistory medicalHistory) {
         this.idMedical = medicalHistory.getIdMedical();
         this.localDate = medicalHistory.getLocalDate();

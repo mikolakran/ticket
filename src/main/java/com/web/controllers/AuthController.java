@@ -1,6 +1,6 @@
 package com.web.controllers;
 
-import com.web.facades.CalendarFacade;
+import com.web.facades.DoctorFacade;
 import com.web.facades.UserFacade;
 import com.web.forms.CalendarForm;
 import com.web.forms.PositionDoctorForm;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
@@ -26,7 +25,7 @@ public class AuthController {
     private UserFacade userFacade;
 
     @Autowired
-    private CalendarFacade calendarFacade;
+    private DoctorFacade doctorFacade;
 
 
     @GetMapping("/")
@@ -72,11 +71,10 @@ public class AuthController {
                 pageMinus = -1;
             }
             if (userSession.getDoctor() != null) {
-                List<CalendarForm> calendarForms =
-                        calendarFacade.findByDoctor_IdDoctor(userSession.getDoctor().getIdDoctor(), pageNo, pageSize);
-                if (calendarForms.size() != 0) {
+                List<CalendarForm> calendars = doctorFacade.getCalendar(userSession.getDoctor().getIdDoctor(), pageNo, pageSize);
+                if (calendars.size() != 0) {
                     LocalDate currentDate = LocalDate.now();
-                    List<CalendarForm> calendarDoctors = calendarForms.
+                    List<CalendarForm> calendarDoctors = calendars.
                             stream().filter(calendar -> currentDate.isBefore(calendar.getLocalDate()) ||
                                     currentDate.isEqual(calendar.getLocalDate()))
                             .sorted(Comparator.comparing(CalendarForm::getLocalDate)).collect(Collectors.toList());
@@ -88,11 +86,6 @@ public class AuthController {
             }
         }
         return modelAndView;
-    }
-
-    @GetMapping("/addUser")
-    public String registration() {
-        return "addUser";
     }
 
 }

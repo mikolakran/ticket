@@ -6,14 +6,10 @@ import com.web.entity.Doctor;
 import com.web.forms.CalendarForm;
 import com.web.forms.DoctorForm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Component
@@ -27,17 +23,6 @@ public class CalendarFacade {
         buildUser(calendar, calendarForm);
         Calendar resultSave = calendarDAO.save(calendar);
         return new CalendarForm(resultSave);
-    }
-
-    public Set<CalendarForm> findAll(){
-        Set<CalendarForm> calendarForms = new HashSet<>();
-        calendarDAO.findAll().forEach(calendarTicket -> calendarForms.add(new CalendarForm(calendarTicket)));
-        return calendarForms;
-    }
-
-    public CalendarForm findId(long idDate){
-        Calendar calendar = calendarDAO.get(idDate);
-        return new CalendarForm(calendar);
     }
 
     public CalendarForm findLocalDate(LocalDate localDate){
@@ -56,17 +41,6 @@ public class CalendarFacade {
             });
         }
         return doctorForms;
-    }
-
-    public List<CalendarForm> findByDoctor_IdDoctor(long idDoctor, int pageNo, int pageSize){
-       Pageable pageable = PageRequest.of(pageNo,pageSize);
-       List<CalendarForm> calendarForms = new ArrayList<>();
-        List<Calendar> byDoctor_idDoctor = calendarDAO.findByDoctor_IdDoctor(idDoctor, pageable);
-        byDoctor_idDoctor.forEach(calendarTicket -> {
-            CalendarForm calendarForm = new CalendarForm(calendarTicket);
-            calendarForms.add(calendarForm);
-        });
-        return calendarForms;
     }
 
     public CalendarForm findByMaxLocalDate(){

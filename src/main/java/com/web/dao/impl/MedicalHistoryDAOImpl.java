@@ -1,15 +1,11 @@
 package com.web.dao.impl;
 
 import com.web.dao.MedicalHistoryDAO;
-import com.web.entity.Calendar;
 import com.web.entity.MedicalHistory;
-import com.web.exception.MyException;
 import com.web.repository.MedicalHistoryJpaRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import java.util.Set;
 
 @Repository
 @Slf4j

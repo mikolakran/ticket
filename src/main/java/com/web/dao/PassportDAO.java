@@ -5,7 +5,6 @@ import com.web.entity.MedicalHistory;
 import com.web.entity.Passport;
 import com.web.entity.TimerTime;
 
-import java.util.List;
 import java.util.Set;
 
 public interface PassportDAO extends DAO<Passport,Long>{

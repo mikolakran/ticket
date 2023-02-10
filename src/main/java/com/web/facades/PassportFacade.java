@@ -5,7 +5,6 @@ import com.web.entity.Calendar;
 import com.web.entity.MedicalHistory;
 import com.web.entity.Passport;
 import com.web.entity.TimerTime;
-import com.web.exception.MyException;
 import com.web.forms.CalendarForm;
 import com.web.forms.MedicalHistoryForm;
 import com.web.forms.PassportForm;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Component
@@ -66,17 +64,6 @@ public class PassportFacade {
             timerTimeForms.add(timerTimeForm);
         });
         return timerTimeForms;
-    }
-
-    private void build(Passport passport, PassportForm passportForm) {
-        passport.setIdPassport(passportForm.getIdPassport());
-        passport.setFamily(passportForm.getFamily());
-        passport.setName(passportForm.getName());
-        passport.setPatronymic(passportForm.getPatronymic());
-        passport.setContactNumber(passportForm.getContactNumber());
-        passport.setDateBirth(passportForm.getDateBirth());
-        passport.setGender(passportForm.getGender());
-        passport.setAddress(passportForm.getAddress());
     }
 
 }

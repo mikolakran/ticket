@@ -106,7 +106,7 @@
 </div><!-- /.container -->
 <p id="paragraph"></p>
 <script type="text/javascript">
-    const restUrl = "addMedicalHistory";
+    const restUrl = "doctor/users/medicalHistory/addMedicalHistory";
 
     function url(u) {
         return "<%=request.getContextPath()%>/" + u+"?idPassport=${idPassport}";

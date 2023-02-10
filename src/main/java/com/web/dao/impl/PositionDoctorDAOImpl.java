@@ -4,7 +4,6 @@ import com.web.dao.PositionDoctorDAO;
 import com.web.entity.Doctor;
 import com.web.entity.PositionDoctor;
 import com.web.repository.PositionDoctorJpaRepository;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -13,7 +12,6 @@ import java.util.Set;
 
 
 @Repository
-@Slf4j
 public class PositionDoctorDAOImpl implements PositionDoctorDAO {
 
     @Autowired
@@ -49,11 +47,6 @@ public class PositionDoctorDAOImpl implements PositionDoctorDAO {
     public PositionDoctor findByPosition(String name) {
         return positionDoctorJpaRepository.findByPosition(name);
     }
-
-/*    @Override
-    public Set<User> getListUser(long id) {
-        return positionDoctorJpaRepository.getListUser(id).getUsers();
-    }*/
 
     @Override
     public Set<Doctor> getListDoctor(long id) {

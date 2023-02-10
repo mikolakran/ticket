@@ -4,17 +4,14 @@ import com.web.entity.Calendar;
 import com.web.entity.MedicalHistory;
 import com.web.entity.TimerTime;
 import com.web.repository.PassportJpaRepository;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.web.dao.PassportDAO;
 import com.web.entity.Passport;
 
-import java.util.List;
 import java.util.Set;
 
 @Repository
-@Slf4j
 public class PassportDAOImpl implements PassportDAO {
 
     @Autowired

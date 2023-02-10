@@ -3,11 +3,10 @@
 <%@ taglib prefix="fmt"
            uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Welcome</title>
+    <title>Confirm Time</title>
     <link rel="stylesheet"
           href="<c:url value="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/> "/>
     <link rel="stylesheet"
@@ -49,7 +48,7 @@
                                     <img src="${pageContext.request.contextPath}/image" title="user-name"/>
                                 </c:if>
                                 <c:if test="${userForm.photo==null}">
-                                    <img src="${pageContext.request.contextPath}/image/smail.jfif" title="user-name"/>
+                                    <img src="../image/smail.jfif" title="user-name"/>
                                 </c:if>
                                 <span>Hello ${userForm.userName}</span>
                             </c:if>
@@ -63,41 +62,48 @@
     </nav>
 </header>
 <div class="container-fluid">
-    <div id="men-left" class="rad col-md-2"></div>
-    <div class=" col-md-6">
-        <div>
-            <h1 id="h1r" class=" text-center">Medical History</h1>
-            <security:authorize access="hasRole('ROLE_DOCTOR')">
-                <c:if test="${medicalHistory.size()!=0}">
-                    <table>
-                        <tr>
-                            <th>Дата</th>
-                            <th>Основное заболевание </th>
-                            <th>Осложнения</th>
-                            <th>Сопутствующие заболевания </th>
-                        </tr>
-                        <c:forEach var="history" items="${medicalHistory}">
-                            <tr>
-                                <td>${history.localDate}</td>
-                                <td>${history.underlyingDisease}</td>
-                                <td>${history.complications}</td>
-                                <td>${history.accompanyingIllnesses}</td>
-                            </tr>
-                        </c:forEach>
-                    </table>
-                </c:if>
-            </security:authorize>
-        </div>
-    </div>
-    <div class="col-md-1">
+    <div>
         <button class="custom-btn btn-6">
                         <span>
-                         <a href="${pageContext.request.contextPath}/addMedicalHistory?idPassport=${idPassport}">
-                             Add Medical History</a>
+                        <a href="">${localDate}</a>
                     </span>
         </button>
     </div>
+    <div>
+        <table>
+            <tr>
+                <th>Time</th>
+                <th>Family</th>
+                <th>Name</th>
+                <th>Patronymic</th>
+                <th>Date Birth</th>
+                <th>Gender</th>
+                <th>Address</th>
+                <th>Contact Number</th>
+                <th>Medical History</th>
+            </tr>
+                <c:forEach var="time" items="${currentDate}">
+            <tr>
+                    <td>${time.time}</td>
+                    <td>${time.passport.family}</td>
+                    <td>${time.passport.name}</td>
+                    <td>${time.passport.patronymic}</td>
+                    <td>${time.passport.dateBirth}</td>
+                    <td>${time.passport.gender}</td>
+                    <td>${time.passport.address}</td>
+                    <td>${time.passport.contactNumber}</td>
+                    <td>
+                        <button class="custom-btn btn-6">
+                        <span>
+                         <a href="${pageContext.request.contextPath}/doctor/users/medicalHistory?idPassport=${time.passport.idPassport}">
+                             Medical History</a>
+                    </span>
+                        </button>
+                    </td>
+            </tr>
+                </c:forEach>
+        </table>
+    </div>
 </div>
-
 </body>
 </html>

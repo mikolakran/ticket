@@ -32,22 +32,18 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .securityMatcher("/", "/login", "/addUser",
+                .securityMatcher("/", "/login", "/user/addUser",
                         "/welcome/**",
-                        "users/**","passports/**","/doctors/**","/calendars/**","/admin/**","/user/**","/positionDoctors/**",
-                        "/medicalHistory/**","/allUsers",/*"/addMedicalHistory/**",*/
-                        "/calendarForUser/**","/confirmTime","/doctorByPosition","/time")
+                        "users/**","passports/**","/doctors/**","/calendars/**","/admin/**","/user/**",
+                        "/doctor/**")
                 .authorizeHttpRequests(authorize ->
                         authorize
-                                .requestMatchers("/", "/login", "/addUser").permitAll()
+                                .requestMatchers("/", "/login", "/user/addUser").permitAll()
                                 .requestMatchers("/welcome/**").hasAnyRole("ADMIN", "USER", "DOCTOR")
                                 .requestMatchers( "users/**","passports/**","/doctors/**","/calendars/**",
                                         "/admin/**").hasRole("ADMIN")
-                                .requestMatchers("/medicalHistory","/allUsers","/addMedicalHistory/**")
-                                .hasRole("DOCTOR")
-                                .requestMatchers("/calendarForUser/**","/confirmTime",
-                                        "/doctorByPosition/**","/time")
-                                .hasRole("USER")
+                                .requestMatchers("/doctor/**").hasRole("DOCTOR")
+                                .requestMatchers("/user/**").hasRole("USER")
                                 .anyRequest().authenticated())
                 .formLogin()
                 .usernameParameter("userName")

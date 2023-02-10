@@ -31,6 +31,11 @@ public class UserController {
     @Autowired
     private TimerTimeFacade timerTimeFacade;
 
+    @GetMapping("/addUser")
+    public String registration() {
+        return "user/addUser";
+    }
+
     @GetMapping("/doctors")
     public ModelAndView displayDoctorsByPosition(
             @SessionAttribute Set<DoctorForm> doctors,
@@ -54,6 +59,7 @@ public class UserController {
         modelAndView.addObject("userForm", userSession);
         DoctorForm doctor = doctorFacade.get(idDoctor);
         modelAndView.addObject("doctor", doctor);
+        //add delete calendar for user
         Set<CalendarForm> calendarUser = passportFacade.
                 getListCalendarUser(userSession.getPassport().getIdPassport());
         LocalDate currentDate = LocalDate.now();
@@ -111,6 +117,7 @@ public class UserController {
         Set<TimerTimeForm> timerTimeForms = new HashSet<>();
         timerTimeForms.add(timerTimeForm);
         passportForm.setTimerTimes(timerTimeForms);
+        timerTimeForm.setPassport(passportForm);
         timerTimeFacade.save(timerTimeForm);
         modelAndView.addObject("userForm", userSession);
         response.sendRedirect(request.getContextPath() + "/welcome/0");

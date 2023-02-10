@@ -2,7 +2,6 @@ package com.web.controllers;
 
 import com.web.entity.Doctor;
 import com.web.entity.Passport;
-import com.web.entity.TimerTime;
 import com.web.exception.MyException;
 import com.web.facades.*;
 import com.web.forms.*;

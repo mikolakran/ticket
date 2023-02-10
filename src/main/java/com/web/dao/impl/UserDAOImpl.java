@@ -4,7 +4,6 @@ import com.web.entity.User;
 import com.web.exception.LoginException;
 import com.web.exception.MyException;
 import com.web.repository.UserJpaRepository;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.web.dao.UserDAO;
@@ -12,7 +11,6 @@ import com.web.dao.UserDAO;
 import java.util.List;
 
 @Repository
-@Slf4j
 public class UserDAOImpl implements UserDAO {
 
     @Autowired
@@ -61,18 +59,10 @@ public class UserDAOImpl implements UserDAO {
 
     private void validationSQL(User user) throws MyException {
         if (findByName(user.getUserName()) != null) {
-            log.error("UserDAOImpl.validationSQL(User user)",
-                    new Throwable("user.getUserName() != null = " + user));
             throw new LoginException("name exist");
-        } else {
-            log.trace("UserDAOImpl.save(User user) = true");
         }
         if (findByEmail(user.getEmail()) != null) {
-            log.error("UserDAOImpl.validationSQL(User user)",
-                    new Throwable("user.getEmail() != null = " + user));
             throw new LoginException("email exist");
-        } else {
-            log.trace("UserDAOImpl.save(User user) = true");
         }
     }
 }

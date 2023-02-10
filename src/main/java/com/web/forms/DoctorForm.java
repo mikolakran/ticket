@@ -16,6 +16,7 @@ public class DoctorForm implements Serializable {
     private List<CalendarForm> calendars;
     private Set<TimerTimeForm> timerTimes;
 
+
     public DoctorForm(Doctor doctor) {
         this.idDoctor = doctor.getIdDoctor();
         this.cabinetNumber = doctor.getCabinetNumber();

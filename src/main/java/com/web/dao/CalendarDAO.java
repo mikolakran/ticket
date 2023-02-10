@@ -11,8 +11,6 @@ import java.util.Set;
 public interface CalendarDAO extends DAO<Calendar,Long> {
     Set<Calendar> findAll();
     Set<Doctor> findListDoctor(LocalDate localDate);
-    List<Calendar> findByDoctor_IdDoctor(long idDoctor, Pageable pageable);
-
     Calendar findLocalDate(LocalDate localDate);
     Calendar findByMaxLocalDate();
 }

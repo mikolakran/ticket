@@ -30,7 +30,7 @@
                     </button>
                     <button class="custom-btn btn-6">
                         <span>
-                         <a href="${pageContext.request.contextPath}/addUser">Registration</a>
+                         <a href="${pageContext.request.contextPath}/user/addUser">Registration</a>
                     </span>
                     </button>
                 </ul>
